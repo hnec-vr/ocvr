@@ -7,6 +7,11 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'dynamic_form'
 gem 'nested_form'
+gem 'authlogic'
+gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
+gem 'i18n-country-translations'
+gem 'rails-i18n', '~> 3.0.0'
+gem 'delayed_job_active_record'
 
 group :production do
   gem 'mysql2'

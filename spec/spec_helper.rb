@@ -12,7 +12,10 @@ Spork.prefork do
   require 'database_cleaner'
 
   RSpec.configure do |config|
+    config.include MailerMacros
+
     config.mock_with :rspec
+    config.render_views
 
     config.before(:each) { reset_email }
 

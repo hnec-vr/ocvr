@@ -11,6 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20131012234655) do
+
+  create_table "simple_captcha_data", :force => true do |t|
+    t.string   "key",        :limit => 40
+    t.string   "value",      :limit => 6
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "simple_captcha_data", ["key"], :name => "idx_key"
+
+  create_table "users", :force => true do |t|
+    t.string   "email"
+    t.string   "city"
+    t.string   "country_code"
+    t.integer  "voting_location_id"
+    t.integer  "constituency_id"
+    t.string   "password_salt"
+    t.string   "password_hash"
+    t.string   "persistence_token"
+    t.string   "last_login_ip"
+    t.string   "current_login_ip"
+    t.datetime "last_request_at"
+    t.string   "password_reset_token"
+    t.string   "email_verification_token"
+    t.boolean  "email_verified",           :default => false
+    t.datetime "created_at"
+  end
 
 end

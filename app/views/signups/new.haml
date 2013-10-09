@@ -1,0 +1,20 @@
+%h3= t 'signup.form.header'
+= form_for @user, :url => signups_path do |f|
+  = f.error_messages
+  = f.label t 'signup.form.labels.email'
+  = f.text_field :email
+  %br
+  = f.label t 'signup.form.labels.password'
+  = f.password_field :password
+  %br
+  = f.label t 'signup.form.labels.password_confirmation'
+  = f.password_field :password_confirmation
+  %br
+  = f.label t 'signup.form.labels.country_select'
+  = f.select :country_code, ::COUNTRY_CODES.collect {|c| [t(c, :scope => :countries), c] }, {:prompt => t("signup.form.country_select_prompt")}
+  %br
+  = f.label t 'signup.form.labels.city'
+  = f.text_field :city
+  %br
+  = f.simple_captcha :code_type => "numeric"
+  = f.submit "Create Account"

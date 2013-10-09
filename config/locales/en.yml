@@ -1,5 +1,17 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  signup:
+    form:
+      header: "Create an Account"
+      labels:
+        email: "Email Address"
+        password: "Password"
+        password_confirmation: "Password Confirmation"
+        country_select: "Country"
+        city: "City"
+      country_select_prompt: "Choose Country"
+  simple_captcha:
+    placeholder: ""
+    label: "Enter the code in the box:"
+    message:
+      default: "Secret Code did not match with the Image"
+      user: "The secret Image and code were different"
