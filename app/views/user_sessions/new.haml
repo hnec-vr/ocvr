@@ -1,0 +1,10 @@
+= flash[:notice]
+= t('login.form.failure') if @failed_login
+= form_for @user_session do |f|
+  = f.label t("login.form.labels.email")
+  = f.text_field :email
+  %br
+  = f.label t("login.form.labels.password")
+  = f.password_field :password
+  %br
+  = f.submit t("login.form.submit")

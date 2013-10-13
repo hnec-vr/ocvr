@@ -11,6 +11,13 @@ en:
       country_select_prompt: "Choose Country"
   email_verification:
     success_flash: "You've successfully verified your email address. Please sign in to complete your registration."
+  login:
+    form:
+      labels:
+        email: "Email Address"
+        password: "Password"
+      submit: "Sign In"
+      failure: "Invalid email/password combination or unverified email address."
   simple_captcha:
     placeholder: ""
     label: "Enter the code in the box:"

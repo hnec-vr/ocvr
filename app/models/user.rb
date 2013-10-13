@@ -7,8 +7,14 @@ class User < ActiveRecord::Base
 
   before_validation :generate_email_verification_token, :on => :create
 
+  scope :verified, where(:email_verified => true)
+
   def verify_email!
     update_attribute(:email_verified, true)
+  end
+
+  def self.find_verified(email)
+    self.verified.find_by_email(email)
   end
 
   private

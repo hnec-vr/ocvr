@@ -6,7 +6,19 @@ describe User do
   it { should validate_presence_of :country_code }
   it { should validate_uniqueness_of :email }
 
-  let(:user) { FactoryGirl.build(:user) }
+  let(:user) { build(:user) }
+
+  describe '.find_verified' do
+    it 'should not return user with unverified email' do
+      user.save
+      User.find_verified(user.email).should be_nil
+    end
+
+    it 'should return user with verified email' do
+      user = create(:verified_user)
+      User.find_verified(user.email).should eq user
+    end
+  end
 
   describe "#verify_email!" do
     it "marks email as verified" do

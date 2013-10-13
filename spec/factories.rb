@@ -5,5 +5,9 @@ FactoryGirl.define do
     password_confirmation "foobar"
     country_code "US"
     city "Chicago"
+
+    factory :verified_user do
+      email_verified true
+    end
   end
 end

@@ -10,14 +10,21 @@ Spork.prefork do
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   require 'database_cleaner'
+  require 'authlogic/test_case'
+
+  include Authlogic::TestCase
 
   RSpec.configure do |config|
     config.include MailerMacros
+    config.include FactoryGirl::Syntax::Methods
 
     config.mock_with :rspec
     config.render_views
 
-    config.before(:each) { reset_email }
+    config.before(:each) do
+      activate_authlogic
+      reset_email
+    end
 
     config.before(:suite) do
       DatabaseCleaner.strategy = :transaction
