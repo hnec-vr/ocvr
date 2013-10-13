@@ -11,6 +11,7 @@ describe EmailVerificationsController do
   it "should redirect to login" do
     get :verify, :token => user.email_verification_token
     assert_redirected_to login_path
+    assert_not_nil flash[:notice]
   end
 
   it "should redirect home if token is invalid" do

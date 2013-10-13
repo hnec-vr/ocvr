@@ -9,6 +9,8 @@ en:
         country_select: "Country"
         city: "City"
       country_select_prompt: "Choose Country"
+  email_verification:
+    success_flash: "You've successfully verified your email address. Please sign in to complete your registration."
   simple_captcha:
     placeholder: ""
     label: "Enter the code in the box:"
@@ -19,3 +21,4 @@ en:
   emails:
     email_verification:
       subject: "Please verify your email"
+

@@ -6,6 +6,6 @@ class EmailVerificationsController < ApplicationController
 
     user.verify_email!
 
-    redirect_to login_path, :notice => "You've successfully verified your email address"
+    redirect_to login_path, :notice => t('email_verification.success_flash')
   end
 end
