@@ -1,5 +1,8 @@
 production:
+  :default_host: vote.ly
 
 development:
+  :default_host: votely.dev
 
 test:
+  :default_host: votely.dev

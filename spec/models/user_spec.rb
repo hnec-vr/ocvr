@@ -8,6 +8,13 @@ describe User do
 
   let(:user) { FactoryGirl.build(:user) }
 
+  describe "#verify_email!" do
+    it "marks email as verified" do
+      user.verify_email!
+      user.email_verified?.should be_true
+    end
+  end
+
   describe "#email_verification_token" do
     context "on create" do
       it "should generate an email verification token" do

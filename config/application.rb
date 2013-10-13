@@ -36,6 +36,8 @@ module OCVR
     config.assets.precompile += ['application.css', 'application.js']
 
     config.filter_parameters += [:password, :password_confirmation]
+
+    config.action_mailer.default_url_options = {:host => ::SETTINGS[:default_host]}
   end
 
   require 'trimmer'

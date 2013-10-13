@@ -16,6 +16,9 @@ describe SignupsController do
 
   describe 'signing up successfully' do
     before { post :create, :user => FactoryGirl.attributes_for(:user) }
+    it "should send email verification email" do
+      email_deliveries.count.should eq 1
+    end
 
     it { assert_redirected_to confirm_path }
   end

@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
 
   before_validation :generate_email_verification_token, :on => :create
 
+  def verify_email!
+    update_attribute(:email_verified, true)
+  end
+
   private
 
   def generate_email_verification_token
