@@ -11,12 +11,15 @@ Spork.prefork do
 
   require 'database_cleaner'
   require 'authlogic/test_case'
+  require 'webmock/rspec'
 
   include Authlogic::TestCase
 
   RSpec.configure do |config|
     config.include MailerMacros
     config.include FactoryGirl::Syntax::Methods
+    config.include ApiStubs
+    config.include Controllers::AuthenticationHelpers, type: :controller
 
     config.mock_with :rspec
     config.render_views

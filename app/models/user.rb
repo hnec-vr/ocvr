@@ -13,6 +13,18 @@ class User < ActiveRecord::Base
     update_attribute(:email_verified, true)
   end
 
+  def increment_nid_lookup_count!
+    increment!(:nid_lookup_count)
+  end
+
+  def national_id_set?
+    national_id.present?
+  end
+
+  def registration_complete?
+    national_id && constituency_id && voting_location_id
+  end
+
   def self.find_verified(email)
     self.verified.find_by_email(email)
   end

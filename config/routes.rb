@@ -1,5 +1,17 @@
 OCVR::Application.routes.draw do
   resources :signups
+  resources :user_sessions
+
+  resource :registration do
+    post :findnid
+    get :confirmnid
+    post :rejectnid
+    get :wrongnid
+    post :setnid
+  end
+
+  resource :account
+
   get "/login" => "user_sessions#new"
 
   match "/verify/:token" => "email_verifications#verify", :as => :verify_email

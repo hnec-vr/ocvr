@@ -1,0 +1,14 @@
+= form_tag findnid_registration_path do
+  = "Please make sure your confirmation matches" if @invalid_confirmation
+  = "Not found" if @not_found
+  = "Captcha was incorrect" if @captcha_incorrect
+
+  = show_simple_captcha if @render_captcha
+  = label_tag "National ID #"
+  = text_field_tag :nid
+  %br
+  = label_tag "Confirmation"
+  = text_field_tag :nid_confirmation
+  %br
+  = submit_tag "Confirm"
+

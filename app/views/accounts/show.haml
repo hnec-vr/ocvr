@@ -1,0 +1,16 @@
+- if current_user.registration_complete?
+  = "You have successfully submitted your voter registration"
+- else
+  = "You have not yet submitted your voter registration"
+
+%br
+
+- if current_user.registration_complete?
+  = link_to "Click here to update your online voter registration form", edit_registration_path
+- else
+  = link_to "Click here to submit your online voter registration form", new_registration_path
+
+%br
+
+- if current_user.registration_complete?
+  = link_to "Download your registration receipt", "#"
