@@ -1,6 +1,8 @@
 class RegistrationsController < ApplicationController
   before_filter :require_login
   before_filter :ensure_new_registration, :only => [:new, :findnid, :confirmnid, :setnid]
+  before_filter :ensure_national_id_set, :only => [:edit, :update]
+  before_filter :ensure_completed_registration, :only => :end
 
   def new
     @render_captcha = true if render_captcha?
@@ -59,6 +61,25 @@ class RegistrationsController < ApplicationController
   def wrongnid
   end
 
+  def edit
+  end
+
+  def update
+    current_user.validate_registration!
+
+    if current_user.update_attributes(
+      :constituency_id => params[:user][:constituency_id],
+      :voting_location_id => params[:user][:voting_location_id],
+      :registration_submission_count => current_user.registration_submission_count+1)
+      redirect_to end_registration_path
+    else
+      render :edit
+    end
+  end
+
+  def end
+  end
+
   private
 
   def attempts_allowed_without_captcha
@@ -77,8 +98,16 @@ class RegistrationsController < ApplicationController
     params[:nid].present? && params[:nid_confirmation].present? && params[:nid] == params[:nid_confirmation]
   end
 
+  def ensure_completed_registration
+    redirect_to edit_registration_path and return unless current_user.registration_complete?
+  end
+
   def ensure_new_registration
     redirect_to account_path and return if current_user.registration_complete?
     redirect_to edit_registration_path and return if current_user.national_id_set?
+  end
+
+  def ensure_national_id_set
+    redirect_to new_registration_path and return unless current_user.national_id_set?
   end
 end

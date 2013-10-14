@@ -1,0 +1,17 @@
+%h3= "Registration Complete"
+
+%p
+  = "Thank you, you have successfully submitted your voter registration.  "
+  - if current_user.can_modify_registration?
+    = "You can change your polling location up to #{current_user.registration_changes_allowed} times if you need but these changes must be completed by DD/MM/YYYY."
+  = "After the end of registration we will emaill you a receipt to print and bring to vote."
+
+%br
+
+= current_user.full_name
+= current_user.voting_location.send(I18n.locale)
+= current_user.constituency.name
+
+- if current_user.can_modify_registration?
+  %br
+  = link_to "Edit details", edit_registration_path

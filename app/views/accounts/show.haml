@@ -5,10 +5,10 @@
 
 %br
 
-- if current_user.registration_complete?
-  = link_to "Click here to update your online voter registration form", edit_registration_path
-- else
+- if !current_user.registration_complete?
   = link_to "Click here to submit your online voter registration form", new_registration_path
+- elsif current_user.can_modify_registration?
+  = link_to "Click here to update your online voter registration form", edit_registration_path
 
 %br
 

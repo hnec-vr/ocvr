@@ -8,6 +8,7 @@ OCVR::Application.routes.draw do
     post :rejectnid
     get :wrongnid
     post :setnid
+    get :end
   end
 
   resource :account

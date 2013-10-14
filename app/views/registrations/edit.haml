@@ -1,0 +1,10 @@
+%h3= "Registration Details"
+= "If you don't know your Constituency go here hnec.ly"
+= form_for current_user, :url => registration_path do |f|
+  = f.label "Constituency:"
+  = f.select :constituency_id, Constituency.all.collect {|c| [c.name, c.id]}, :prompt => "Constituency"
+  %br
+  = f.label "Voting Location:"
+  = f.select :voting_location_id, VotingLocation.all.collect {|l| [l.send(I18n.locale), l.id]}, :prompt => "Where do you want to vote?"
+  %br
+  = f.submit "Submit Registration"

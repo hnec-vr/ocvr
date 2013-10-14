@@ -198,12 +198,64 @@ describe RegistrationsController do
       end
     end
 
-
     describe '/edit' do
       it "redirects to /new if nid not set" do
+        get :edit
+        assert_redirected_to new_registration_path
+      end
+    end
+
+    describe '#update' do
+      it "redirects to /new if nid not set" do
+        put :update, :user => {:constituency_id => 1, :voting_location_id => 1}
+        assert_redirected_to new_registration_path
       end
 
-      it "redirects to /edit if registration completed" do
+      context "when nid is set" do
+        let(:user) { create(:user_with_nid) }
+        before { sign_in(user) }
+
+        it "toggles validation" do
+          User.any_instance.should_receive(:validate_registration!)
+          put :update, :user => {:constituency_id => 1, :voting_location_id => 1}
+        end
+
+        it "updates user" do
+          User.any_instance.should_receive(:update_attributes)
+          put :update, :user => {:constituency_id => 1, :voting_location_id => 1}
+        end
+
+        it "re-renders form if validation fails" do
+          put :update, :user => {}
+          assert_template :edit
+        end
+
+        it "redirects to thank you page" do
+          put :update, :user => {:constituency_id => 1, :voting_location_id => 1}
+          assert_redirected_to end_registration_path
+        end
+      end
+    end
+
+    describe '/end' do
+      context "unregistered user" do
+        let(:user) { create(:user_with_nid) }
+        before { sign_in(user) }
+
+        it "redirects to registration form" do
+          get :end
+          assert_redirected_to edit_registration_path
+        end
+      end
+
+      context "registered user" do
+        let(:user) { create(:registered_user) }
+        before { sign_in(user) }
+
+        it "loads successfully" do
+          get :end
+          assert_response :success
+        end
       end
     end
   end

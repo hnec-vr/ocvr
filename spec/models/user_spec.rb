@@ -34,6 +34,34 @@ describe User do
     end
   end
 
+  describe "#registration_changes_allowed" do
+    it "should allow 3 submissions" do
+      user.registration_changes_allowed.should eq 3
+    end
+
+    it "should subtract submission count to calculate value" do
+      User.any_instance.stub(:registration_submission_count => 2)
+      user.registration_changes_allowed.should eq 1
+    end
+
+    it "should not be negative" do
+      User.any_instance.stub(:registration_submission_count => 5)
+      user.registration_changes_allowed.should eq 0
+    end
+  end
+
+  describe "#can_modify_registration?" do
+    it "should be true if registration_changes_allowed >= 0" do
+      User.any_instance.stub(:registration_changes_allowed => 2)
+      user.can_modify_registration?.should be_true
+    end
+
+    it "should be false if registration_changes_allowed == 0" do
+      User.any_instance.stub(:registration_changes_allowed => 0)
+      user.can_modify_registration?.should be_false
+    end
+  end
+
   describe "#increment_nid_lookup_count!" do
     it "should increment nid_lookup_count by 1" do
       user.increment_nid_lookup_count!
@@ -70,6 +98,39 @@ describe User do
       user.national_id = nid
       user.save
       user.registration_complete?.should be_false
+    end
+  end
+
+  describe "#validate_registration!" do
+    it "sets validate_registration to true" do
+      user.validate_registration!
+      user.validate_registration.should be_true
+    end
+  end
+
+  describe "conditional registration validation" do
+    context "when registration validation is enabled" do
+      before { user.validate_registration! }
+
+      it "user should be invalid" do
+        user.valid?.should be_false
+      end
+
+      it "user should be valid if constituency and voting location are set" do
+        user.voting_location_id = 1
+        user.constituency_id = 1
+        user.valid?.should be_true
+      end
+    end
+  end
+
+  describe "#full_name" do
+    it "should combine family name, grandfather name, father name, and first name" do
+      User.any_instance.stub(:family_name => "Noda",
+                             :grandfather_name => "Stanley",
+                             :father_name => "Corey",
+                             :first_name => "Abi")
+      user.full_name.should eq "Noda Stanley Corey Abi"
     end
   end
 

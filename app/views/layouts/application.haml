@@ -6,6 +6,12 @@
     = csrf_meta_tags
     = stylesheet_link_tag "application"
   %body
-    = yield
+    %h1= "OCVR"
+    %nav
+      = link_to "Home", root_path
+      = link_to "FAQ", faq_path
+      = link_to "My Account", account_path
+    %section
+      = yield
     = javascript_include_tag "application"
     = render partial: "layouts/snippets"

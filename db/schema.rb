@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131012234655) do
+ActiveRecord::Schema.define(:version => 20131014172104) do
+
+  create_table "constituencies", :force => true do |t|
+    t.string "name"
+  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0, :null => false
@@ -42,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20131012234655) do
     t.string   "email"
     t.string   "city"
     t.string   "country_code"
-    t.integer  "national_id",              :limit => 8
+    t.integer  "national_id",                   :limit => 8
     t.date     "birth_date"
     t.string   "family_name"
     t.string   "father_name"
@@ -54,8 +58,9 @@ ActiveRecord::Schema.define(:version => 20131012234655) do
     t.integer  "constituency_id"
     t.string   "password_reset_token"
     t.string   "email_verification_token"
-    t.boolean  "email_verified",                        :default => false
-    t.integer  "nid_lookup_count",                      :default => 0
+    t.boolean  "email_verified",                             :default => false
+    t.integer  "nid_lookup_count",                           :default => 0
+    t.integer  "registration_submission_count",              :default => 0
     t.string   "password_salt"
     t.string   "password_hash"
     t.string   "persistence_token"
@@ -63,6 +68,11 @@ ActiveRecord::Schema.define(:version => 20131012234655) do
     t.string   "current_login_ip"
     t.datetime "last_request_at"
     t.datetime "created_at"
+  end
+
+  create_table "voting_locations", :force => true do |t|
+    t.string "en"
+    t.string "ar"
   end
 
 end
