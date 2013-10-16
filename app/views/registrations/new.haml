@@ -3,7 +3,7 @@
   = "Not found" if @not_found
   = "Captcha was incorrect" if @captcha_incorrect
 
-  = show_simple_captcha if @render_captcha
+  = show_simple_captcha(:code_type => "numeric") if @render_captcha
   = label_tag "National ID #"
   = text_field_tag :nid
   %br
