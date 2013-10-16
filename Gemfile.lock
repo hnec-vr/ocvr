@@ -99,9 +99,6 @@ GEM
       activesupport (= 3.2.14)
       bundler (~> 1.0)
       railties (= 3.2.14)
-    rails-i18n (3.0.0)
-      i18n (~> 0.5)
-      rails (>= 3.0.0, < 4.0.0)
     railties (3.2.14)
       actionpack (= 3.2.14)
       activesupport (= 3.2.14)
@@ -149,6 +146,9 @@ GEM
     uglifier (2.2.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    valid_email (0.0.4)
+      activemodel
+      mail
     webmock (1.13.0)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
@@ -170,11 +170,11 @@ DEPENDENCIES
   nestful
   pg
   rails (= 3.2.14)
-  rails-i18n (~> 3.0.0)
   rspec-rails
   sass-rails
   shoulda-matchers
   simple_captcha!
   spork-rails
   uglifier
+  valid_email
   webmock

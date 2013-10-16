@@ -10,9 +10,9 @@ gem 'nested_form'
 gem 'authlogic'
 gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'i18n-country-translations'
-gem 'rails-i18n', '~> 3.0.0'
 gem 'delayed_job_active_record'
 gem 'nestful'
+gem 'valid_email'
 
 group :production do
   gem 'mysql2'

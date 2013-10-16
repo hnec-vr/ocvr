@@ -9,6 +9,64 @@ describe User do
   let(:user) { build(:user) }
   let(:nid)  { successful_response[:body]["national_id"] }
 
+  describe '#missing_required_signup_fields?' do
+    it "should be false if required fields are present" do
+      user.save
+      user.missing_required_signup_fields?.should be_false
+    end
+
+    it "should be true if required fields are blank" do
+      user.city = ""
+      user.save
+      user.missing_required_signup_fields?.should be_true
+    end
+
+    it "should be true if password is blank for new user" do
+      user = build(:user_with_blank_password)
+      user.save
+      user.missing_required_signup_fields?.should be_true
+    end
+  end
+
+  describe '#nonunique_email?' do
+    it "should be true if nonunique email" do
+      user.save
+      another_user = build(:user)
+      another_user.email = user.email
+      another_user.save
+      another_user.nonunique_email?.should be_true
+    end
+
+    it "should be false if unique email" do
+      user.save
+      another_user = build(:user)
+      another_user.save
+      another_user.nonunique_email?.should be_false
+    end
+  end
+
+  describe '#invalid_email?' do
+    it "should be true if invalid email address format" do
+      user.email = "example@com"
+      user.save
+      user.invalid_email?.should be_true
+    end
+
+    it "should be false if valid email address format" do
+      user.email = "example@gmail.com"
+      user.save
+      user.invalid_email?.should be_false
+    end
+  end
+
+  describe '#nonmatching_password_confirmation?' do
+    it "should be true if passwords dont match" do
+      user.password_confirmation = "hello"
+      user.save
+      user.nonmatching_password_confirmation?.should be_true
+    end
+  end
+
   describe '.find_verified' do
     it 'should not return user with unverified email' do
       user.save

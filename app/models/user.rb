@@ -1,3 +1,5 @@
+require 'valid_email'
+
 class User < ActiveRecord::Base
   acts_as_authentic
   apply_simple_captcha :add_to_base => true
@@ -6,8 +8,9 @@ class User < ActiveRecord::Base
   belongs_to :constituency
   belongs_to :voting_location
 
-  validates_presence_of :email, :country_code, :city
-  validates_uniqueness_of :email
+  validates_presence_of :country_code, :city
+  validates :email, :presence => true, :uniqueness => true, :email => true
+  validates_presence_of :password, :password_confirmation, :on => :create
   validates_presence_of :constituency_id, :voting_location_id, :if => :validate_registration
 
   before_validation :generate_email_verification_token, :on => :create
@@ -49,6 +52,22 @@ class User < ActiveRecord::Base
 
   def self.find_verified(email)
     self.verified.find_by_email(email)
+  end
+
+  def missing_required_signup_fields?
+    errors.messages.flatten.flatten.include?("can't be blank")
+  end
+
+  def nonunique_email?
+    self.errors[:email].include?("has already been taken")
+  end
+
+  def invalid_email?
+    self.errors[:email].include?("should look like an email address.")
+  end
+
+  def nonmatching_password_confirmation?
+    self.errors[:password].include?("doesn't match confirmation")
   end
 
   private

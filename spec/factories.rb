@@ -6,6 +6,10 @@ FactoryGirl.define do
     country_code "US"
     city "Chicago"
 
+    factory :user_with_blank_password do
+      password ""
+    end
+
     factory :verified_user do
       email_verified true
 

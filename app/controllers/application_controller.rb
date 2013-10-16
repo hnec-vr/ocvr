@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  helper_method :current_user
+  helper_method :current_user, :simple_captcha_valid?
   before_filter :no_layout_if_xhr, :set_locale
 
   protected

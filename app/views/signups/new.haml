@@ -1,6 +1,11 @@
 %h3= t 'signup.form.header'
 = form_for @user, :url => signups_path do |f|
-  = f.error_messages
+  = "Please make sure all fields are filled" if @user.missing_required_signup_fields?
+  = "Email address is alredy registered" if @user.nonunique_email?
+  = "Invalid email address" if @user.invalid_email?
+  = "Password confirmation doesn't match" if display_password_confirmation_error?
+  = "Captcha field was incorrect" if display_captcha_error?
+  %br
   = f.label t 'signup.form.labels.email'
   = f.text_field :email
   %br
