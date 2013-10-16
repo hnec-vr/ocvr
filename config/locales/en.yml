@@ -25,6 +25,9 @@ en:
       default: "Secret Code did not match with the Image"
       user: "The secret Image and code were different"
 
+  registration:
+    form:
+      failure: "Please make sure you've selected both a constituency and voting location."
   emails:
     email_verification:
       subject: "Please verify your email"

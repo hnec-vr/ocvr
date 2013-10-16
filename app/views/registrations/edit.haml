@@ -2,6 +2,7 @@
 = "If you don't know your Constituency go here hnec.ly"
 = form_for current_user, :url => registration_path do |f|
   = f.label "Constituency:"
+  = t('registration.form.failure') if f.object.errors.any?
   = f.select :constituency_id, Constituency.all.collect {|c| [c.name, c.id]}, :prompt => "Constituency"
   %br
   = f.label "Voting Location:"
