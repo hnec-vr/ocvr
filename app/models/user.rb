@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   acts_as_authentic
   apply_simple_captcha :add_to_base => true
   attr_accessor :validate_registration
+  attr_accessible :email, :password, :password_confirmation,
+                  :country_code, :city, :captcha, :captcha_key
 
   belongs_to :constituency
   belongs_to :voting_location

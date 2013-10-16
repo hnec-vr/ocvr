@@ -39,7 +39,7 @@ class RegistrationsController < ApplicationController
   end
 
   def setnid
-    current_user.update_attributes session[:nid]
+    current_user.update_attributes session[:nid], :without_protection => true
 
     redirect_to edit_registration_path
   end
@@ -67,10 +67,11 @@ class RegistrationsController < ApplicationController
   def update
     current_user.validate_registration!
 
-    if current_user.update_attributes(
+    if current_user.update_attributes({
       :constituency_id => params[:user][:constituency_id],
       :voting_location_id => params[:user][:voting_location_id],
-      :registration_submission_count => current_user.registration_submission_count+1)
+      :registration_submission_count => current_user.registration_submission_count+1},
+      :without_protection => true)
       redirect_to end_registration_path
     else
       render :edit

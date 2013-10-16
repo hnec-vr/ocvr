@@ -184,7 +184,7 @@ describe RegistrationsController do
       end
 
       it "assigns user nid" do
-        User.any_instance.should_receive(:update_attributes).with(successful_response[:body])
+        User.any_instance.should_receive(:update_attributes).with(successful_response[:body], :without_protection => true)
         post :setnid
       end
 
