@@ -21,6 +21,7 @@ OCVR::Application.routes.draw do
   get "/faq"   => "static_pages#faq"
   get "/start" => "static_pages#start"
   get "/confirm" => "static_pages#confirm"
+  get '/suspended' => "static_pages#suspended"
 
   root :to => "home#index"
 end

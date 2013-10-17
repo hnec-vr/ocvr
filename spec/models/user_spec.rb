@@ -9,6 +9,45 @@ describe User do
   let(:user) { build(:user) }
   let(:nid)  { successful_response[:body]["national_id"] }
 
+  describe "#suspend!" do
+    let(:user) { create(:user) }
+
+    it "should set suspended at to current datetime" do
+      frozen_time = Time.now
+      Time.stub(:now => frozen_time)
+
+      user.suspend!
+      user.reload.suspended_at.should eq frozen_time
+    end
+
+    it "should reset nid_lookup_count" do
+      user.update_attribute(:nid_lookup_count, 5)
+      user.suspend!
+      user.reload.nid_lookup_count.should eq 0
+    end
+
+    it "should return true" do
+      user.suspend!.should be_true
+    end
+  end
+
+  describe '#suspended?' do
+    it "should be true if suspended_at is within 4 hours" do
+      user.stub(:suspended_at => Time.now-2.hours)
+      user.suspended?.should be_true
+    end
+
+    it "should be false if suspended_at is nil" do
+      user.stub(:suspended_at => nil)
+      user.suspended?.should be_false
+    end
+
+    it "should be false if suspended_at is more than 4 hours past" do
+      user.stub(:suspended_at => Time.now-5.hours)
+      user.suspended?.should be_false
+    end
+  end
+
   describe '#missing_required_signup_fields?' do
     it "should be false if required fields are present" do
       user.save

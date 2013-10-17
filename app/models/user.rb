@@ -19,6 +19,16 @@ class User < ActiveRecord::Base
 
   scope :verified, where(:email_verified => true)
 
+  def suspend!
+    self.suspended_at = Time.now
+    self.nid_lookup_count = 0
+    save(:validate => false)
+  end
+
+  def suspended?
+    suspended_at && suspended_at > Time.now-4.hours
+  end
+
   def validate_registration!
     @validate_registration = true
   end

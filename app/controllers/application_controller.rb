@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def ensure_not_suspended
+    redirect_to suspended_path and return if current_user.suspended?
+  end
+
   def current_user
     @current_user ||= current_user_session && current_user_session.record
   end

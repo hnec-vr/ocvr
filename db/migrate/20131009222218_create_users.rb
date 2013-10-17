@@ -19,6 +19,7 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean  :email_verified, :default => false
       t.integer  :nid_lookup_count, :default => 0
       t.integer  :registration_submission_count, :default => 0
+      t.datetime :suspended_at
       t.string   :password_salt
       t.string   :password_hash
       t.string   :persistence_token

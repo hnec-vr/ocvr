@@ -1,6 +1,7 @@
 class RegistrationsController < ApplicationController
   before_filter :require_login
-  before_filter :ensure_new_registration, :only => [:new, :findnid, :confirmnid, :setnid]
+  before_filter :ensure_new_registration, :ensure_not_suspended,
+                  :only => [:new, :findnid, :confirmnid, :setnid]
   before_filter :ensure_national_id_set, :only => [:edit, :update]
   before_filter :ensure_completed_registration, :only => :end
 
@@ -10,6 +11,10 @@ class RegistrationsController < ApplicationController
 
   def findnid
     current_user.increment_nid_lookup_count!
+
+    if current_user.nid_lookup_count >= 5
+      current_user.suspend! and redirect_to suspended_path and return
+    end
 
     @render_captcha = true if render_captcha?
 

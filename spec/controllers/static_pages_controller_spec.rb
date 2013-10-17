@@ -20,4 +20,9 @@ describe StaticPagesController do
     before { get :confirm }
     it { assert_response :success }
   end
+
+  describe '/suspended' do
+    before { get :suspended }
+    it { assert_response :success }
+  end
 end

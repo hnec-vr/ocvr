@@ -19,6 +19,14 @@ describe RegistrationsController do
     end
 
     shared_examples "a new registration" do
+      context 'when a users account is suspended' do
+        it "redirects to account suspended page" do
+          User.any_instance.stub(:suspended? => true)
+          test_request.call
+          assert_redirected_to suspended_path
+        end
+      end
+
       it "redirects to registration form if nid is already set" do
         User.any_instance.stub(:national_id_set? => true)
         test_request.call
@@ -117,6 +125,13 @@ describe RegistrationsController do
           post :findnid
           assert_not_nil assigns(:captcha_incorrect)
         end
+      end
+
+      it "should suspend account on 5th lookup" do
+        User.any_instance.stub(:nid_lookup_count => 5)
+        User.any_instance.should_receive(:suspend!).and_return(true)
+        post :findnid
+        assert_redirected_to suspended_path
       end
 
       describe "validating national id confirmation" do
