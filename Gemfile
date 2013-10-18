@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 ruby "1.9.3"
 
 gem 'rails', '3.2.14'
+gem 'thin'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'dynamic_form'
@@ -13,13 +14,9 @@ gem 'i18n-country-translations'
 gem 'delayed_job_active_record'
 gem 'nestful'
 gem 'valid_email'
-
-group :production do
-  gem 'mysql2'
-end
+gem 'pg'
 
 group :development, :test do
-  gem 'pg'
   gem 'rspec-rails'
 end
 
