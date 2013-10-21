@@ -1,4 +1,13 @@
 OCVR::Application.routes.draw do
+  namespace :admin do
+    resources :nid_reviews do
+      post :approve, :on => :member
+      post :deny,    :on => :member
+    end
+
+    root :to => "nid_reviews#index"
+  end
+
   resources :signups
   resources :user_sessions
 
@@ -8,6 +17,9 @@ OCVR::Application.routes.draw do
     post :rejectnid
     get :wrongnid
     post :setnid
+    get :reclaimnid
+    post :matchnid
+    get :nidreview
     get :end
   end
 

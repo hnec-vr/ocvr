@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131014172104) do
+ActiveRecord::Schema.define(:version => 20131018042653) do
 
   create_table "constituencies", :force => true do |t|
     t.string "name"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(:version => 20131014172104) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "nid_reviews", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "registry_number"
+    t.string   "mother_name"
+    t.text     "nid_data"
+    t.boolean  "approved"
+    t.datetime "created_at"
+  end
 
   create_table "simple_captcha_data", :force => true do |t|
     t.string   "key",        :limit => 40
@@ -54,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20131014172104) do
     t.string   "grandfather_name"
     t.string   "mother_name"
     t.string   "gender"
+    t.integer  "registry_number"
     t.integer  "voting_location_id"
     t.integer  "constituency_id"
     t.string   "password_reset_token"
@@ -62,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20131014172104) do
     t.integer  "nid_lookup_count",                           :default => 0
     t.integer  "registration_submission_count",              :default => 0
     t.datetime "suspended_at"
+    t.boolean  "active",                                     :default => true
     t.string   "password_salt"
     t.string   "password_hash"
     t.string   "persistence_token"
@@ -70,6 +81,11 @@ ActiveRecord::Schema.define(:version => 20131014172104) do
     t.datetime "last_request_at"
     t.datetime "created_at"
   end
+
+  add_index "users", ["active"], :name => "index_users_on_active"
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["email_verification_token"], :name => "index_users_on_email_verification_token", :unique => true
+  add_index "users", ["national_id"], :name => "index_users_on_national_id"
 
   create_table "voting_locations", :force => true do |t|
     t.string "en"

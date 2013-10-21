@@ -1,7 +1,8 @@
 class RegistrationsController < ApplicationController
   before_filter :require_login
   before_filter :ensure_new_registration, :ensure_not_suspended,
-                  :only => [:new, :findnid, :confirmnid, :setnid]
+                  :only => [:new, :findnid, :confirmnid, :setnid,
+                              :reclaimnid, :matchnid, :nidreview]
   before_filter :ensure_national_id_set, :only => [:edit, :update]
   before_filter :ensure_completed_registration, :only => :end
 
@@ -44,9 +45,11 @@ class RegistrationsController < ApplicationController
   end
 
   def setnid
-    current_user.update_attributes session[:nid], :without_protection => true
-
-    redirect_to edit_registration_path
+    if current_user.update_attributes session[:nid], :without_protection => true
+      redirect_to edit_registration_path
+    elsif User.find_by_national_id(session[:nid]["national_id"])
+      redirect_to reclaimnid_registration_path
+    end
   end
 
   def rejectnid
@@ -64,6 +67,24 @@ class RegistrationsController < ApplicationController
   end
 
   def wrongnid
+  end
+
+  def reclaimnid
+  end
+
+  def matchnid
+    if params[:registry_number].present? && params[:mother_name].present?
+      NidReview.create! :user => current_user,
+                        :registry_number => params[:registry_number],
+                        :mother_name => params[:mother_name],
+                        :nid_data => session[:nid]
+      redirect_to nidreview_registration_path
+    else
+      render :reclaimnid
+    end
+  end
+
+  def nidreview
   end
 
   def edit

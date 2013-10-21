@@ -5,9 +5,74 @@ describe User do
   it { should validate_presence_of :city }
   it { should validate_presence_of :country_code }
   it { should validate_uniqueness_of :email }
+  it { should validate_uniqueness_of :national_id }
 
   let(:user) { build(:user) }
   let(:nid)  { successful_response[:body]["national_id"] }
+
+  describe "validations" do
+    describe "#national_id should scope uniquness by #active" do
+      describe "should allow only one active user per national id" do
+        it "should save a user if no other active users have the same nid" do
+          first_user = create(:user_with_nid)
+          second_user = create(:user_with_nid)
+          second_user.new_record?.should be_false
+        end
+
+        it "should not save a user if another active user has the same nid" do
+          first_user = create(:user_with_nid)
+          expect {
+            second_user = create(:user_with_nid, :national_id => first_user.national_id)
+
+          }.to raise_error ActiveRecord::RecordInvalid
+        end
+      end
+
+      it "should allow multiple inactive users per national id" do
+        first_user = create(:user_with_nid, :active => false)
+        second_user = create(:user_with_nid, :active => false, :national_id => first_user.national_id)
+        second_user.new_record?.should be_false
+      end
+
+      it "should allow one active user and one inactive user per national id" do
+        first_user = create(:user_with_nid, :active => false)
+        second_user = create(:user_with_nid, :national_id => first_user.national_id)
+        second_user.new_record?.should be_false
+      end
+    end
+  end
+
+  describe "deactivate!" do
+    let(:user) { create(:verified_user) }
+
+    it "should deactivate user" do
+      user.deactivate!
+      user.reload.active?.should be_false
+    end
+  end
+
+  describe "claim_nid!" do
+    let!(:old_user) { create(:user_with_nid, :national_id => nid) }
+    let!(:new_user) { create(:verified_user) }
+
+    it "should deactive existing user with same nid" do
+      User.any_instance.stub(:update_attributes!)
+      User.any_instance.should_receive(:deactivate!).once
+      new_user.claim_nid!(successful_response[:body])
+    end
+
+    it "should use a database tranaction" do
+      User.any_instance.stub(:update_attributes!).and_raise(ArgumentError)
+      new_user.claim_nid!(successful_response[:body])
+      old_user.reload.active?.should be_true
+    end
+
+    it "should save user successfully with nid" do
+      new_user.claim_nid!(successful_response[:body])
+      new_user.national_id.should == nid
+      new_user.reload.national_id.should == nid
+    end
+  end
 
   describe "#suspend!" do
     let(:user) { create(:user) }

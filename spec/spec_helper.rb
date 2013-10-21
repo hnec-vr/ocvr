@@ -3,6 +3,9 @@ require 'spork'
 
 Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
+  ENV["ADMIN_USERNAME"] ||= "adminusername"
+  ENV["ADMIN_PASSWORD"] ||= "adminpassword"
+
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'

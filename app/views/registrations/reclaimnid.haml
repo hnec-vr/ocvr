@@ -1,0 +1,10 @@
+= session_name
+%br
+= form_tag matchnid_registration_path do
+  = label_tag "Family Record Number:"
+  = text_field_tag :registry_number
+  %br
+  = label_tag "Mother's Name:"
+  = text_field_tag :mother_name
+  %br
+  = submit_tag "Submit"

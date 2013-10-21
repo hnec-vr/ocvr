@@ -33,7 +33,7 @@ module OCVR
 
     config.assets.initialize_on_precompile = false
 
-    config.assets.precompile += ['application.css', 'application.js']
+    config.assets.precompile += ['application.css', 'application.js', 'admin.css', 'admin.js']
 
     config.filter_parameters += [:password, :password_confirmation]
 

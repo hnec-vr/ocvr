@@ -12,6 +12,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string   :grandfather_name
       t.string   :mother_name
       t.string   :gender
+      t.integer  :registry_number
       t.integer  :voting_location_id
       t.integer  :constituency_id
       t.string   :password_reset_token
@@ -20,6 +21,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer  :nid_lookup_count, :default => 0
       t.integer  :registration_submission_count, :default => 0
       t.datetime :suspended_at
+      t.boolean  :active, :default => true
       t.string   :password_salt
       t.string   :password_hash
       t.string   :persistence_token
@@ -28,5 +30,10 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime :last_request_at
       t.datetime :created_at
     end
+
+    add_index :users, :email, :unique => true
+    add_index :users, :active
+    add_index :users, :national_id
+    add_index :users, :email_verification_token, :unique => true
   end
 end

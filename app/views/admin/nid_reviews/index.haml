@@ -1,0 +1,22 @@
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th= "Email"
+      %th= "Submitted Registry Number"
+      %th= "Submitted Mother's Name"
+      %th= "Actual NID Data"
+      %th= "Created At"
+      %th= "Actions"
+  - @nid_reviews.each do |r|
+    %tr
+      %td= r.user.email
+      %td= r.registry_number
+      %td= r.mother_name
+      %td= r.nid_data
+      %td= r.created_at
+      %td
+        - if r.processed?
+          = r.approved? ? "Approved" : "Denied"
+        - else
+          = link_to "Approve", approve_admin_nid_review_path(r), :method => :post
+          = link_to "Deny", deny_admin_nid_review_path(r), :method => :post

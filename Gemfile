@@ -30,5 +30,6 @@ end
 
 group :assets do
   gem 'uglifier'
-  gem 'sass-rails'
+  gem 'sass-rails', '>= 3.2'
+  gem 'bootstrap-sass', '~> 2.3.2.1'
 end

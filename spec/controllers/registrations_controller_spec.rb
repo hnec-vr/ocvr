@@ -174,12 +174,6 @@ describe RegistrationsController do
         it "should redirect to confirmation screen" do
           assert_redirected_to confirmnid_registration_path
         end
-
-        context "if nid is already claimed" do
-          it "should redirect to nid claim form" do
-            pending
-          end
-        end
       end
 
       it_behaves_like "a new registration" do
@@ -198,8 +192,16 @@ describe RegistrationsController do
         session[:nid] = successful_response[:body]
       end
 
-      it "assigns user nid" do
-        User.any_instance.should_receive(:update_attributes).with(successful_response[:body], :without_protection => true)
+      context "if nid is already claimed" do
+        it "should redirect to nid reclaim page" do
+          existing_user = create(:verified_user, :national_id => nid)
+          post :setnid
+          assert_redirected_to reclaimnid_registration_path
+        end
+      end
+
+      it "saves user with nid data set" do
+        User.any_instance.should_receive(:update_attributes).with(successful_response[:body], :without_protection => true).and_return(true)
         post :setnid
       end
 
@@ -210,6 +212,75 @@ describe RegistrationsController do
 
       it_behaves_like "a new registration" do
         let(:test_request) { Proc.new { post :setnid } }
+      end
+    end
+
+    describe '/reclaimnid' do
+      context "when session nid is not set" do
+        it "should not load successfully" do
+          expect {
+            get :reclaimnid
+          }.to raise_error
+        end
+      end
+
+      context "when session nid is set" do
+        before do
+          session[:nid] = successful_response[:body]
+        end
+
+        it "loads successfully" do
+          get :reclaimnid
+          assert_response :success
+        end
+
+        it_behaves_like "a new registration" do
+          let(:test_request) { Proc.new { get :reclaimnid } }
+        end
+      end
+    end
+
+    describe '/matchnid' do
+      let!(:existing_user) do
+        create(:verified_user,
+          :registry_number => successful_response[:body]["registry_number"],
+          :mother_name => successful_response[:body]["mother_name"])
+      end
+
+      before do
+        session[:nid] = successful_response[:body]
+      end
+
+      it "displays form errors if blank fields" do
+        post :matchnid
+        assert_response :success
+        assert_template :reclaimnid
+      end
+
+      context "if fields are not blank" do
+        it "redirects to nid review page" do
+          NidReview.stub(:create!)
+          post :matchnid, :registry_number => existing_user.registry_number,
+                          :mother_name => "a name"
+
+          assert_redirected_to nidreview_registration_path
+        end
+
+        it "should create nid review record" do
+          NidReview.should_receive(:create!)
+          post :matchnid, :registry_number => existing_user.registry_number,
+                          :mother_name => "a name"
+        end
+      end
+
+      it_behaves_like "a new registration" do
+        let(:test_request) { Proc.new { post :matchnid } }
+      end
+    end
+
+    describe '/nidreview' do
+      it "should load successfully" do
+        get :nidreview
       end
     end
 

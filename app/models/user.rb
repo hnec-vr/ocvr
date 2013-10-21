@@ -14,10 +14,29 @@ class User < ActiveRecord::Base
   validates :email, :presence => true, :uniqueness => true, :email => true
   validates_presence_of :password, :password_confirmation, :on => :create
   validates_presence_of :constituency_id, :voting_location_id, :if => :validate_registration
+  validates_uniqueness_of :national_id, :allow_nil => true, :scope => :active, :if => :active?
 
   before_validation :generate_email_verification_token, :on => :create
 
+  default_scope :conditions => {:active => true}
+
   scope :verified, where(:email_verified => true)
+
+  def deactivate!
+    update_attribute(:active, false)
+  end
+
+  def claim_nid!(attrs)
+    transaction do
+      begin
+        old_user = User.find_by_national_id attrs["national_id"]
+        old_user.deactivate!
+        update_attributes!(attrs, :without_protection => true)
+      rescue
+        raise ActiveRecord::Rollback
+      end
+    end
+  end
 
   def suspend!
     self.suspended_at = Time.now

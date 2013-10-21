@@ -14,7 +14,7 @@ FactoryGirl.define do
       email_verified true
 
       factory :user_with_nid do
-        national_id SecureRandom.random_number(10000000)
+        sequence(:national_id) {|n| n*1000}
 
         factory :registered_user do
           constituency
@@ -22,6 +22,12 @@ FactoryGirl.define do
         end
       end
     end
+  end
+
+  factory :nid_review do
+    association :user, :factory => :verified_user
+    sequence(:registry_number) {|n| n*1000}
+    mother_name "loraine"
   end
 
   factory :constituency do

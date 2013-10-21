@@ -10,7 +10,8 @@ module ApiStubs
         "gender" => "F",
         "grandfather_name" => "\u0645\u0635\u0641\u0649",
         "mother_name" => "\u062e\u062f\u064a\u062c\u0647 \u062c\u0648\u064a\u0644\u0649 \u0627\u062d\u0645\u064a\u062f\u0647",
-        "national_id" => 118000023427
+        "national_id" => 118000023427,
+        "registry_number" => 2231520
       }
     }
   end

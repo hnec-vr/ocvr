@@ -8,4 +8,14 @@ class Mailer < ActionMailer::Base
     mail :to => user.email,
          :subject => t("emails.email_verification.subject")
   end
+
+  def nid_approval(nid_review)
+    mail :to => nid_review.user.email,
+         :subject => "Your account has been verified"
+  end
+
+  def nid_denial(nid_review)
+    mail :to => nid_review.user.email,
+         :subject => "We could not verify your account"
+  end
 end
