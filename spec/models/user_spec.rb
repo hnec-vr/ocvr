@@ -113,6 +113,16 @@ describe User do
     end
   end
 
+  describe '#regenerate_password_reset_token!' do
+    let(:user) { create(:verified_user) }
+
+    it "should save a random token" do
+      expect {
+        user.regenerate_password_reset_token!
+      }.to change(user.reload, :password_reset_token)
+    end
+  end
+
   describe '#missing_required_signup_fields?' do
     it "should be false if required fields are present" do
       user.save

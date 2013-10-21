@@ -1,0 +1,6 @@
+- if request.post?
+  = "Email address was not found"
+
+= form_tag password_resets_path do
+  = text_field_tag :email
+  = submit_tag "Reset Password"

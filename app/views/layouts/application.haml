@@ -15,5 +15,6 @@
         = link_to "Sign Out", logout_path, :method => :delete
     %section
       = yield
+      = link_to "Reset Password", new_password_reset_path
     = javascript_include_tag "application"
     = render partial: "layouts/snippets"

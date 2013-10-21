@@ -3,7 +3,7 @@ require 'valid_email'
 class User < ActiveRecord::Base
   acts_as_authentic
   apply_simple_captcha :add_to_base => true
-  attr_accessor :validate_registration
+  attr_accessor :validate_registration, :validate_password
   attr_accessible :email, :password, :password_confirmation,
                   :country_code, :city, :captcha, :captcha_key
 
@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :country_code, :city
   validates :email, :presence => true, :uniqueness => true, :email => true
-  validates_presence_of :password, :password_confirmation, :on => :create
+  validates_presence_of :password, :password_confirmation, :if => :should_validate_password?
   validates_presence_of :constituency_id, :voting_location_id, :if => :validate_registration
   validates_uniqueness_of :national_id, :allow_nil => true, :scope => :active, :if => :active?
 
@@ -101,7 +101,15 @@ class User < ActiveRecord::Base
     self.errors[:password].include?("doesn't match confirmation")
   end
 
+  def regenerate_password_reset_token!
+    update_attribute(:password_reset_token, SecureRandom::hex(32))
+  end
+
   private
+
+  def should_validate_password?
+    @validate_password || new_record?
+  end
 
   def generate_email_verification_token
     self.email_verification_token = SecureRandom::hex(32)

@@ -11,6 +11,10 @@ OCVR::Application.routes.draw do
   resources :signups
   resources :user_sessions
 
+  resources :password_resets do
+    get :sent, :on => :collection
+  end
+
   resource :registration do
     post :findnid
     get :confirmnid
