@@ -1,6 +1,5 @@
 class Mailer < ActionMailer::Base
-  default from:     "info@domain.ly",
-          reply_to: "info@domain.ly"
+  default from:     "no-reply@voteabroad.ly"
 
   def email_verification(user)
     @user = user
