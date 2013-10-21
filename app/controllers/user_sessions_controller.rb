@@ -13,4 +13,11 @@ class UserSessionsController < ApplicationController
       render :new
     end
   end
+
+  def destroy
+    user_session = UserSession.find
+    user_session.destroy
+
+    redirect_to root_path
+  end
 end

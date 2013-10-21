@@ -28,4 +28,22 @@ describe UserSessionsController do
     it { assert_response :success }
     it { assert_template(:new) }
   end
+
+  context 'sign out' do
+    let(:user) { create(:verified_user) }
+
+    before do
+      sign_in(user)
+    end
+
+    it "should destroy user session" do
+      UserSession.any_instance.should_receive(:destroy)
+      delete :destroy
+    end
+
+    it "should redirect home" do
+      delete :destroy
+      assert_redirected_to root_path
+    end
+  end
 end

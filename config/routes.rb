@@ -26,6 +26,7 @@ OCVR::Application.routes.draw do
   resource :account
 
   get "/login" => "user_sessions#new"
+  delete "/logout" => "user_sessions#destroy"
 
   match "/verify/:token" => "email_verifications#verify", :as => :verify_email
 
