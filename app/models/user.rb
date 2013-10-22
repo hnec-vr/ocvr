@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    [family_name, grandfather_name, father_name, first_name].join(" ")
+    [first_name, father_name, grandfather_name, family_name].join(" ")
   end
 
   def verify_email!

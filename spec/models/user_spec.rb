@@ -302,7 +302,7 @@ describe User do
                              :grandfather_name => "Stanley",
                              :father_name => "Corey",
                              :first_name => "Abi")
-      user.full_name.should eq "Noda Stanley Corey Abi"
+      user.full_name.should eq "Abi Corey Stanley Noda"
     end
   end
 

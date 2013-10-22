@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def session_name
-    [session[:nid]["family_name"], session[:nid]["grandfather_name"], session[:nid]["father_name"], session[:nid]["first_name"]].join(" ")
+    [session[:nid]["first_name"], session[:nid]["father_name"], session[:nid]["grandfather_name"], session[:nid]["family_name"]].join(" ")
   end
 
   def display_password_confirmation_error?
