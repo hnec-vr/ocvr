@@ -7,6 +7,8 @@
     = stylesheet_link_tag "application"
   %body
     %h1= "OCVR"
+    = link_to "العربية", root_path(:locale => "ar")
+    = link_to "English", root_path(:locale => "en")
     %nav
       = link_to "Home", root_path
       = link_to "FAQ", faq_path
