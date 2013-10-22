@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(:version => 20131018042653) do
 
   create_table "constituencies", :force => true do |t|
     t.string "name"
+    t.string "en_translation"
   end
 
   create_table "delayed_jobs", :force => true do |t|
