@@ -1,10 +1,13 @@
 .hero-unit
   %h2= "Registration Complete"
 
-  %p= "Thank you, you have successfully submitted your voter registration.  "
-  - if current_user.can_modify_registration?
-    %p= "You can change your polling location up to <strong>#{current_user.registration_changes_allowed} time(s)</strong> if you need but these changes must be completed by DD/MM/YYYY.".html_safe
-  %p= "After the end of registration we will emaill you a confirmation. Please remember that a photo ID is required at the polls."
+  - if voter_registration_closed?
+    %p= "Voter registration is closed"
+  - else
+    %p= "Thank you, you have successfully registered to vote."
+    - if current_user.can_modify_registration?
+      %p= "You can change your polling location up to <strong>#{current_user.registration_changes_allowed} time(s)</strong> if you need but these changes must be completed by the end of registration.".html_safe
+    %p= "After the end of registration we will email you a confirmation. Please remember that a photo ID is required at the polls."
 
   .centered-content
     = current_user.full_name

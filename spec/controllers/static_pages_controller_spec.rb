@@ -25,4 +25,9 @@ describe StaticPagesController do
     before { get :suspended }
     it { assert_response :success }
   end
+
+  describe '/closed' do
+    before { get :closed }
+    it { assert_response :success }
+  end
 end

@@ -22,4 +22,18 @@ describe SignupsController do
 
     it { assert_redirected_to confirm_path }
   end
+
+  describe "should redirect to /closed if voter reg is closed" do
+    it "#new" do
+      Date.stub(:today => ::SETTINGS[:voter_registration_deadline]+1.day)
+      get :new
+      assert_redirected_to closed_path
+    end
+
+    it "#post" do
+      Date.stub(:today => ::SETTINGS[:voter_registration_deadline]+1.day)
+      post :create, :user => FactoryGirl.attributes_for(:user)
+      assert_redirected_to closed_path
+    end
+  end
 end

@@ -5,6 +5,7 @@ class RegistrationsController < ApplicationController
                               :reclaimnid, :matchnid, :nidreview]
   before_filter :ensure_national_id_set, :only => [:edit, :update]
   before_filter :ensure_completed_registration, :only => :end
+  before_filter :ensure_voter_registration_open, :except => :end
 
   def new
     @render_captcha = true if current_user.nid_lookup_count >= attempts_allowed_without_captcha
@@ -141,5 +142,9 @@ class RegistrationsController < ApplicationController
 
   def ensure_national_id_set
     redirect_to new_registration_path and return unless current_user.national_id_set?
+  end
+
+  def ensure_voter_registration_open
+    redirect_to account_path and return if voter_registration_closed?
   end
 end

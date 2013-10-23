@@ -1,4 +1,6 @@
 class SignupsController < ApplicationController
+  before_filter :ensure_voter_registration_open
+
   def new
     @user = User.new
   end
@@ -12,5 +14,11 @@ class SignupsController < ApplicationController
     else
       render :new
     end
+  end
+
+  private
+
+  def ensure_voter_registration_open
+    redirect_to closed_path and return if voter_registration_closed?
   end
 end

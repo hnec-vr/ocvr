@@ -27,6 +27,12 @@ describe RegistrationsController do
         end
       end
 
+      it "redirects to account if voter registration is closed" do
+        Date.stub(:today => ::SETTINGS[:voter_registration_deadline]+1.day)
+        test_request.call
+        assert_redirected_to account_path
+      end
+
       it "redirects to registration form if nid is already set" do
         User.any_instance.stub(:national_id_set? => true)
         test_request.call

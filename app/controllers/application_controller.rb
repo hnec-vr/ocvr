@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  helper_method :current_user, :simple_captcha_valid?
+  helper_method :current_user, :simple_captcha_valid?, :voter_registration_closed?
   before_filter :no_layout_if_xhr, :capture_locale, :set_locale
 
   protected
@@ -18,6 +18,10 @@ class ApplicationController < ActionController::Base
 
   def require_login
     redirect_to login_path and return unless current_user
+  end
+
+  def voter_registration_closed?
+    Date.today > ::SETTINGS[:voter_registration_deadline]
   end
 
   private

@@ -1,8 +1,14 @@
+defaults: &defaults
+  :voter_registration_deadline: 2013-12-2
+
 production:
+  <<: *defaults
   :default_host: voteabroad.ly
 
 development:
+  <<: *defaults
   :default_host: votely.dev
 
 test:
+  <<: *defaults
   :default_host: votely.dev
