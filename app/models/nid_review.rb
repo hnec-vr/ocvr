@@ -8,6 +8,8 @@ class NidReview < ActiveRecord::Base
 
   before_validation :set_original_user, :on => :create
 
+  default_scope :order => "approved NULLS FIRST, created_at DESC"
+
   def user
     User.unscoped { super }
   end
