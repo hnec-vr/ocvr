@@ -67,6 +67,27 @@ describe User do
     end
   end
 
+  context "when user registration is updated" do
+    let!(:user) { create(:registered_user) }
+    before { user.validate_registration! }
+
+    context "when constituency is changed" do
+      let!(:constituency) { create(:constituency) }
+
+      it "should increment registration submission count" do
+        user.update_attributes({:constituency_id => constituency.id, :voting_location_id => user.voting_location_id}, :without_protection => true)
+        user.registration_submission_count.should eq 1
+      end
+    end
+
+    context "when neither constituency nor voting location is changed" do
+      it "should not increment registration submission count" do
+        user.update_attributes({:constituency_id => user.constituency_id, :voting_location_id => user.voting_location_id}, :without_protection => true)
+        user.registration_submission_count.should eq 0
+      end
+    end
+  end
+
   describe "deactivate!" do
     let(:user) { create(:verified_user) }
 

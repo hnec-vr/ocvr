@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
 
   before_validation :generate_email_verification_token, :on => :create
   before_update :clear_password_reset_token, :if => :password_changed?
+  before_update :increment_registration_submission_count,
+    :if => Proc.new {|user| user.validate_registration && user.constituency_id_changed? or user.voting_location_id_changed? }
 
   default_scope :conditions => {:active => true}
 
@@ -127,5 +129,9 @@ class User < ActiveRecord::Base
 
   def generate_email_verification_token
     self.email_verification_token = SecureRandom::hex(32)
+  end
+
+  def increment_registration_submission_count
+    increment(:registration_submission_count)
   end
 end

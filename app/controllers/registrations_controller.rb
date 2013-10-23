@@ -101,8 +101,7 @@ class RegistrationsController < ApplicationController
 
     if current_user.update_attributes({
       :constituency_id => params[:user][:constituency_id],
-      :voting_location_id => params[:user][:voting_location_id],
-      :registration_submission_count => current_user.registration_submission_count+1},
+      :voting_location_id => params[:user][:voting_location_id]},
       :without_protection => true)
       redirect_to end_registration_path
     else
