@@ -1,7 +1,10 @@
 require 'valid_email'
 
 class User < ActiveRecord::Base
-  acts_as_authentic
+  acts_as_authentic do |c|
+    c.logged_in_timeout = 60.minutes
+  end
+
   apply_simple_captcha :add_to_base => true
   attr_accessor :validate_registration, :validate_password
   attr_accessible :email, :password, :password_confirmation,
