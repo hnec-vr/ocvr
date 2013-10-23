@@ -9,7 +9,7 @@
       .alert.alert-error= "Invalid email address"
     - if display_password_confirmation_error?
       .alert.alert-error= "Password confirmation doesn't match"
-    - if display_captcha_error?
+    - if !@user.is_captcha_valid? && request.post?
       .alert.alert-error= "Captcha field was incorrect"
     = f.label t 'signup.form.labels.email'
     = f.text_field :email

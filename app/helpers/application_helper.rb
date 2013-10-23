@@ -10,8 +10,4 @@ module ApplicationHelper
   def display_password_confirmation_error?
     @user.errors[:password].count == 1 && @user.nonmatching_password_confirmation?
   end
-
-  def display_captcha_error?
-    request.post? && !simple_captcha_valid?
-  end
 end
