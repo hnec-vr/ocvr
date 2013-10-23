@@ -5,6 +5,10 @@ class NidReview < ActiveRecord::Base
 
   validates_presence_of :user_id, :registry_number, :mother_name, :nid_data
 
+  def user
+    User.unscoped { super }
+  end
+
   def processed?
     !approved.nil?
   end
