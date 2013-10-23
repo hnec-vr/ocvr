@@ -7,25 +7,30 @@ class RegistrationsController < ApplicationController
   before_filter :ensure_completed_registration, :only => :end
 
   def new
-    @render_captcha = true if render_captcha?
+    @render_captcha = true if current_user.nid_lookup_count >= attempts_allowed_without_captcha
   end
 
   def findnid
+    @render_captcha = true if current_user.nid_lookup_count >= attempts_allowed_without_captcha-1
+
+    unless valid_nid_length?
+      @invalid_nid_length = true
+      render :new and return
+    end
+
+    unless valid_nid_confirmation?
+      @invalid_nid_confirmation = true
+      render :new and return
+    end
+
     current_user.increment_nid_lookup_count!
 
     if current_user.nid_lookup_count >= 5
       current_user.suspend! and redirect_to suspended_path and return
     end
 
-    @render_captcha = true if render_captcha?
-
     if validate_captcha? && !simple_captcha_valid?
       @captcha_incorrect = true
-      render :new and return
-    end
-
-    unless nid_fields_exist_and_match?
-      @invalid_confirmation = true
       render :new and return
     end
 
@@ -117,12 +122,12 @@ class RegistrationsController < ApplicationController
     current_user.nid_lookup_count >= attempts_allowed_without_captcha+1
   end
 
-  def render_captcha?
-    current_user.nid_lookup_count >= attempts_allowed_without_captcha
+  def valid_nid_length?
+    params[:nid].present? && params[:nid].length == 12
   end
 
-  def nid_fields_exist_and_match?
-    params[:nid].present? && params[:nid_confirmation].present? && params[:nid] == params[:nid_confirmation]
+  def valid_nid_confirmation?
+    params[:nid_confirmation].present? && params[:nid] == params[:nid_confirmation]
   end
 
   def ensure_completed_registration

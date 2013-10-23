@@ -1,8 +1,10 @@
 .hero-unit
   %h2= "Please enter your 12-digit National ID Number"
   = form_tag findnid_registration_path do
-    - if @invalid_confirmation
-      .alert.alert-error= "Please make sure your confirmation matches"
+    - if @invalid_nid_length
+      .alert.alert-error= "Please make sure your National ID Number is 12-digits"
+    - if @invalid_nid_confirmation
+      .alert.alert-error= "Your confirmation did not match."
     - if @not_found
       .alert.alert-error= "Invalid National ID Number"
     - if @captcha_incorrect

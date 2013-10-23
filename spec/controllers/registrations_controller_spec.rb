@@ -41,28 +41,22 @@ describe RegistrationsController do
       end
     end
 
-    shared_examples "toggles captcha" do
-      it "should not display captcha after 1st attempt" do
-        User.any_instance.stub(:nid_lookup_count => 1)
-        test_request.call
-        assert_nil assigns(:render_captcha)
-      end
-
-      it "should display captcha after 2nd attempt" do
-        User.any_instance.stub(:nid_lookup_count => 2)
-        test_request.call
-        assert_not_nil assigns(:render_captcha)
-      end
-    end
-
     describe '/new' do
       it "loads successfully" do
         get :new
         assert_response :success
       end
 
-      it_behaves_like "toggles captcha" do
-        let(:test_request) { Proc.new { get :new } }
+      it "renders captcha if 2 or more nid lookups" do
+        User.any_instance.stub(:nid_lookup_count => 2)
+        get :new
+        assert_not_nil assigns(:render_captcha)
+      end
+
+      it "does not render captcha if less than 2 nid lookups" do
+        User.any_instance.stub(:nid_lookup_count => 1)
+        get :new
+        assert_nil assigns(:render_captcha)
       end
 
       it_behaves_like "a new registration" do
@@ -108,21 +102,33 @@ describe RegistrationsController do
     describe '#findnid' do
       it "should increment nid lookup count" do
         User.any_instance.should_receive(:increment_nid_lookup_count!)
-        post :findnid
+        post :findnid, :nid => nid, :nid_confirmation => nid
+      end
+
+      it "should render captcha after 2nd lookup" do
+        User.any_instance.stub(:nid_lookup_count => 1)
+        post :findnid, :nid => nid, :nid_confirmation => 123
+        assert_not_nil assigns(:render_captcha)
+      end
+
+      it "should not render captcha before 2nd lookup" do
+        User.any_instance.stub(:nid_lookup_count => 0)
+        post :findnid, :nid => nid, :nid_confirmation => 123
+        assert_nil assigns(:render_captcha)
       end
 
       context "should validate captcha after 2nd lookup" do
         it "should not validate captcha if 2nd lookup" do
           User.any_instance.stub(:nid_lookup_count => 2)
           ApplicationController.any_instance.stub(:simple_captcha_valid? => false)
-          post :findnid
+          post :findnid, :nid => nid, :nid_confirmation => nid
           assert_nil assigns(:captcha_incorrect)
         end
 
         it "should validate captcha if 3rd lookup" do
           User.any_instance.stub(:nid_lookup_count => 3)
           ApplicationController.any_instance.stub(:simple_captcha_valid? => false)
-          post :findnid
+          post :findnid, :nid => nid, :nid_confirmation => nid
           assert_not_nil assigns(:captcha_incorrect)
         end
       end
@@ -130,15 +136,35 @@ describe RegistrationsController do
       it "should suspend account on 5th lookup" do
         User.any_instance.stub(:nid_lookup_count => 5)
         User.any_instance.should_receive(:suspend!).and_return(true)
-        post :findnid
+        post :findnid, :nid => nid, :nid_confirmation => nid
         assert_redirected_to suspended_path
       end
 
-      describe "validating national id confirmation" do
-        it "should rerender form and display message if confirmation fails" do
-          post :findnid, :nid => nid, :nid_confirmation => 1
-          assert_not_nil assigns(:invalid_confirmation)
-          assert_template :new
+      describe "validating national id and confirmation" do
+        context "if confirmation is invalid" do
+          it "should display error" do
+            post :findnid, :nid => nid, :nid_confirmation => 1
+            assert_not_nil assigns(:invalid_nid_confirmation)
+            assert_template :new
+          end
+
+          it "should not increment nid lookup count" do
+            User.any_instance.should_not_receive(:increment_nid_lookup_count!)
+            post :findnid, :nid => nid, :nid_confirmation => 1
+          end
+        end
+
+        context "if nid is invalid length" do
+          it "should display error" do
+            post :findnid, :nid => 123, :nid_confirmation => 123
+            assert_not_nil assigns(:invalid_nid_length)
+            assert_template :new
+          end
+
+          it "should not increment nid lookup count" do
+            User.any_instance.should_not_receive(:increment_nid_lookup_count!)
+            post :findnid, :nid => 123, :nid_confirmation => 123
+          end
         end
       end
 
@@ -154,10 +180,6 @@ describe RegistrationsController do
 
         it "should display error message" do
           assert_not_nil assigns(:not_found)
-        end
-
-        it_behaves_like "toggles captcha" do
-          let(:test_request) { Proc.new { post :findnid, :nid => nid, :nid_confirmation => nid } }
         end
       end
 
