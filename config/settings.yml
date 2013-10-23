@@ -3,12 +3,12 @@ defaults: &defaults
 
 production:
   <<: *defaults
-  :default_host: voteabroad.ly
+  :default_host: www.voteabroad.ly
 
 development:
   <<: *defaults
-  :default_host: votely.dev
+  :default_host: www.votely.dev
 
 test:
   <<: *defaults
-  :default_host: votely.dev
+  :default_host: www.votely.dev
