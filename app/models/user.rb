@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :national_id, :allow_nil => true, :scope => :active, :if => :active?
 
   before_validation :generate_email_verification_token, :on => :create
+  before_update :clear_password_reset_token, :if => :password_changed?
 
   default_scope :conditions => {:active => true}
 
@@ -115,6 +116,10 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def clear_password_reset_token
+    self.password_reset_token = nil
+  end
 
   def should_validate_password?
     @validate_password || new_record?

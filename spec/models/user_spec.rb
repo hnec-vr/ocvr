@@ -42,6 +42,31 @@ describe User do
     end
   end
 
+  context "when password is changed" do
+    before do
+      user.save
+      user.regenerate_password_reset_token!
+      user.password_reset_token.should_not be_nil
+    end
+
+    it "should clear password reset token" do
+
+      user.password = "newpassword"
+      user.password_confirmation = "newpassword"
+      user.save
+
+      user.password_reset_token.should be_nil
+    end
+
+    it "should only clear password reset token if password is saved" do
+      user.password = "pass"
+      user.password_confirmation = "pass"
+      user.save
+
+      user.password_reset_token.should_not be_nil
+    end
+  end
+
   describe "deactivate!" do
     let(:user) { create(:verified_user) }
 
