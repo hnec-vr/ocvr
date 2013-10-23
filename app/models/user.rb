@@ -2,6 +2,7 @@ require 'valid_email'
 
 class User < ActiveRecord::Base
   acts_as_authentic do |c|
+    c.merge_validates_length_of_password_confirmation_field_options :minimum => 6
     c.logged_in_timeout = 60.minutes
   end
 
