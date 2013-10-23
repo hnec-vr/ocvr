@@ -10,6 +10,7 @@ class SignupsController < ApplicationController
 
     if @user.save_with_captcha
       Mailer.delay.email_verification(@user)
+      current_user_session.destroy
       redirect_to confirm_path
     else
       render :new

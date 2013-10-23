@@ -20,6 +20,10 @@ describe SignupsController do
       email_deliveries.count.should eq 1
     end
 
+    it "user should not be signed in" do
+      UserSession.find.should be_nil
+    end
+
     it { assert_redirected_to confirm_path }
   end
 

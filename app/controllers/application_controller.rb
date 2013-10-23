@@ -24,16 +24,16 @@ class ApplicationController < ActionController::Base
     Date.today > ::SETTINGS[:voter_registration_deadline]
   end
 
+  def current_user_session
+    @current_user_session ||= UserSession.find
+  end
+
   private
 
   def capture_locale
     if params[:locale] && %w(en ar).include?(params[:locale])
       session[:locale] = params[:locale]
     end
-  end
-
-  def current_user_session
-    @current_user_session ||= UserSession.find
   end
 
   def no_layout_if_xhr
