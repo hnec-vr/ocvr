@@ -7,10 +7,7 @@
     = stylesheet_link_tag "application", "//fonts.googleapis.com/css?family=Rokkitt|Muli|Open+Sans:400,700,300"
   %body{:class => I18n.locale}
     .container
-      %header
-        %ul.locales
-          %li= link_to "العربية", root_path(:locale => "ar")
-          %li= link_to "English", root_path(:locale => "en")
+      %header.clearfix
         %nav
           .navbar
             .navbar-inner
@@ -22,6 +19,9 @@
                 - if current_user
                   %li= link_to "Sign Out", logout_path, :method => :delete
         = image_tag "hnec-logo.png", :class => "hnec-logo"
+        .locales
+          = link_to "العربية", root_path(:locale => "ar")
+          = link_to "English", root_path(:locale => "en")
       .container.main-container
         .main-content= yield
       .container.footer

@@ -7,7 +7,6 @@ body
 
 header
   position: relative
-  overflow: hidden
 
 h1
   font-family: 'Rokkitt'
@@ -17,7 +16,6 @@ h2
 
 nav
   width: 680px
-  margin: 1px
   float: left
 
 .hnec-logo
@@ -40,14 +38,24 @@ p.confirm-name
 
 .locales
   list-style-type: none
-  overflow: hidden
+  position: absolute
+  top: 17px
+  left: 558px
+  background-color: #a3a3a3
+  padding: 2px 6px
+  +border-radius(4px)
+  +box-shadow(0 0 1px #111)
 
-  li
-    float: left
-    margin-left: 18px
+  a
+    font-size: 13px
+    color: #fff
+    margin: 0 4px
+    text-shadow: 0 0 1px #111
 
-    a
-      color: #666
+    &:hover
+      text-decoration: none
+      color: #111
+      text-shadow: none
 
 .field_with_errors
   display: inline
@@ -73,7 +81,7 @@ p.confirm-name
   position: relative
 
   .nav li a
-    padding: 18px 20px
+    padding: 18px
     color: #fff
     text-shadow: 0 1px 0 #111
     font-weight: bold
