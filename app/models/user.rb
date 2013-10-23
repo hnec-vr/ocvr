@@ -3,6 +3,7 @@ require 'valid_email'
 class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.merge_validates_length_of_password_confirmation_field_options :minimum => 6
+    c.merge_validates_length_of_password_field_options :minimum => 6
     c.logged_in_timeout = 60.minutes
   end
 
@@ -87,6 +88,10 @@ class User < ActiveRecord::Base
 
   def self.find_verified(email)
     self.verified.find_by_email(email)
+  end
+
+  def password_too_short?
+    self.errors[:password].include?("is too short (minimum is 6 characters)")
   end
 
   def missing_required_signup_fields?

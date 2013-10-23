@@ -123,6 +123,20 @@ describe User do
     end
   end
 
+  describe "#password_too_short?" do
+    it "should be true if password is less than 6 characters" do
+      user.password = "foo"
+      user.password_confirmation = "foo"
+      user.save
+      user.password_too_short?.should be_true
+    end
+
+    it "should be false if password is at least 6 characters" do
+      user.save
+      user.password_too_short?.should be_false
+    end
+  end
+
   describe '#missing_required_signup_fields?' do
     it "should be false if required fields are present" do
       user.save

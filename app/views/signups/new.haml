@@ -7,6 +7,8 @@
       .alert.alert-error= "Email address is alredy registered"
     - if @user.invalid_email?
       .alert.alert-error= "Invalid email address"
+    - if @user.password_too_short?
+      .alert.alert-error= "Password must be at least 6 characters"
     - if display_password_confirmation_error?
       .alert.alert-error= "Password confirmation doesn't match"
     - if !@user.is_captcha_valid? && request.post?
