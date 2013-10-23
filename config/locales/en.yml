@@ -8,7 +8,7 @@ en:
         password_confirmation: "Password Confirmation"
         country_select: "Country"
         city: "City"
-      country_select_prompt: "Choose Country"
+      country_select_prompt: "Current Country"
   email_verification:
     success_flash: "You've successfully verified your email address. Please sign in to complete your registration."
   login:
@@ -27,8 +27,16 @@ en:
 
   registration:
     form:
+      labels:
+        constituency: "Constituency:"
+        voting_location: "Voting Location:"
       failure: "Please make sure you've selected both a constituency and voting location."
   emails:
     email_verification:
       subject: "Please verify your email"
+  activerecord:
+    attributes:
+      user:
+        email: "Emil address"
+        password: "yolo"
 

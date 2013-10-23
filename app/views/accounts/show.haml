@@ -1,16 +1,14 @@
-- if current_user.registration_complete?
-  = "You have successfully submitted your voter registration"
-- else
-  = "You have not yet submitted your voter registration"
+.hero-unit
+  - if current_user.registration_complete?
+    .alert.alert-success= "You have successfully submitted your voter registration"
+  - else
+    .alert.alert-error= "You have not yet submitted your voter registration"
 
-%br
+  - if !current_user.registration_complete?
+    = link_to "Click here to submit your online voter registration form", new_registration_path, :class => "btn btn-large btn-warning"
+  - elsif current_user.can_modify_registration?
+    = link_to "Click here to update your online voter registration form", edit_registration_path, :class => "btn btn-large btn-warning"
 
-- if !current_user.registration_complete?
-  = link_to "Click here to submit your online voter registration form", new_registration_path
-- elsif current_user.can_modify_registration?
-  = link_to "Click here to update your online voter registration form", edit_registration_path
-
-%br
-
-- if current_user.registration_complete?
-  = link_to "Download your registration receipt", "#"
+  %br
+  - if current_user.registration_complete?
+    = link_to "View your registration confirmation", end_registration_path, :class => "btn btn-large btn-warning"

@@ -216,14 +216,6 @@ describe RegistrationsController do
     end
 
     describe '/reclaimnid' do
-      context "when session nid is not set" do
-        it "should not load successfully" do
-          expect {
-            get :reclaimnid
-          }.to raise_error
-        end
-      end
-
       context "when session nid is set" do
         before do
           session[:nid] = successful_response[:body]

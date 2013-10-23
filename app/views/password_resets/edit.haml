@@ -1,5 +1,5 @@
 - if request.put?
-  = "Please make sure your passwords match and are at least 8 characters."
+  = "Please make sure your passwords match and are at least 6 characters long."
 
 = form_for @user, :url => password_reset_url(@user.password_reset_token) do |f|
   = f.password_field :password

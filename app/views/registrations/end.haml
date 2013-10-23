@@ -1,17 +1,20 @@
-%h3= "Registration Complete"
+.hero-unit
+  %h2= "Registration Complete"
 
-%p
-  = "Thank you, you have successfully submitted your voter registration.  "
+  %p= "Thank you, you have successfully submitted your voter registration.  "
   - if current_user.can_modify_registration?
-    = "You can change your polling location up to #{current_user.registration_changes_allowed} times if you need but these changes must be completed by DD/MM/YYYY."
-  = "After the end of registration we will emaill you a receipt to print and bring to vote."
+    %p= "You can change your polling location up to <strong>#{current_user.registration_changes_allowed} time(s)</strong> if you need but these changes must be completed by DD/MM/YYYY.".html_safe
+  %p= "After the end of registration we will emaill you a confirmation. Please remember that a photo ID is required at the polls."
 
-%br
+  .centered-content
+    = current_user.full_name
+    %br
+    = current_user.voting_location.send(I18n.locale)
+    %br
+    = current_user.constituency.name
+    %br
 
-= current_user.full_name
-= current_user.voting_location.send(I18n.locale)
-= current_user.constituency.name
-
-- if current_user.can_modify_registration?
-  %br
-  = link_to "Edit details", edit_registration_path
+    %br
+    - if current_user.can_modify_registration?
+      = link_to "Modify registration details", edit_registration_path, :class => "btn btn-large btn-warning"
+    = link_to "Print", "#", :class => "btn btn-large btn-warning"

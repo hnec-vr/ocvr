@@ -1,9 +1,9 @@
-%h3= "Is this you?"
+.hero-unit
+  %h2= "Is this you?"
+  %p.confirm-name= session_name
 
-= session_name
+  = form_tag setnid_registration_path, :class => "inline" do
+    = submit_tag "Yes", :class => "btn btn-warning btn-large"
 
-= form_tag setnid_registration_path do
-  = submit_tag "Yes"
-
-= form_tag rejectnid_registration_path do
-  = submit_tag "No"
+  = form_tag rejectnid_registration_path, :class => "inline" do
+    = submit_tag "No", :class => "btn btn-warning btn-large"

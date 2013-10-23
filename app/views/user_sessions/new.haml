@@ -1,10 +1,19 @@
-= flash[:notice]
-= t('login.form.failure') if @failed_login
-= form_for @user_session do |f|
-  = f.label t("login.form.labels.email")
-  = f.text_field :email
-  %br
-  = f.label t("login.form.labels.password")
-  = f.password_field :password
-  %br
-  = f.submit t("login.form.submit")
+.hero-unit
+  %h2= "Sign In"
+
+  - if flash[:notice]
+    .alert.alert-success= flash[:notice]
+  - if @failed_login
+    .alert.alert-error= t('login.form.failure')
+  = form_for @user_session do |f|
+    = f.label t("login.form.labels.email")
+    = f.text_field :email
+    %br
+    = f.label t("login.form.labels.password")
+    = f.password_field :password
+    %br
+    = f.submit t("login.form.submit"), :class => "btn"
+
+  = link_to "Create an Account", new_signup_path
+  = "&nbsp;".html_safe
+  = link_to "Reset Password", new_password_reset_path

@@ -1,4 +1,4 @@
-= "The Civil Registry Authority has this NID #{session_national_id} linked to this name, #{session_name}. If you believe this is an error, please consult the Civil Registry Authority <link> and go to the NID Project <link> to confirm your NID."
-%br
-= link_to "Try Again", new_registration_path
-= link_to "My Account", account_path
+.hero-unit
+  %p= "The Civil Registry Authority has the National ID Number #{session_national_id} linked to the name #{session_name}. If you believe this is an error, please consult the #{link_to 'Civil Registry Authority', 'http://cra.gov.ly'} and go to the #{link_to 'National ID Project website', 'http://nid.gov.ly'} to confirm your NID.".html_safe
+  = link_to "Try Again", new_registration_path, :class => "btn btn-large btn-warning"
+  = link_to "My Account", account_path, :class => "btn btn-large btn-warning"

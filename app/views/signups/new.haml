@@ -1,25 +1,31 @@
-%h3= t 'signup.form.header'
-= form_for @user, :url => signups_path do |f|
-  = "Please make sure all fields are filled" if @user.missing_required_signup_fields?
-  = "Email address is alredy registered" if @user.nonunique_email?
-  = "Invalid email address" if @user.invalid_email?
-  = "Password confirmation doesn't match" if display_password_confirmation_error?
-  = "Captcha field was incorrect" if display_captcha_error?
-  %br
-  = f.label t 'signup.form.labels.email'
-  = f.text_field :email
-  %br
-  = f.label t 'signup.form.labels.password'
-  = f.password_field :password
-  %br
-  = f.label t 'signup.form.labels.password_confirmation'
-  = f.password_field :password_confirmation
-  %br
-  = f.label t 'signup.form.labels.country_select'
-  = f.select :country_code, ::COUNTRY_CODES.collect {|c| [t(c, :scope => :countries), c] }, {:prompt => t("signup.form.country_select_prompt")}
-  %br
-  = f.label t 'signup.form.labels.city'
-  = f.text_field :city
-  %br
-  = f.simple_captcha :code_type => "numeric"
-  = f.submit "Create Account"
+.hero-unit
+  %h3= t 'signup.form.header'
+  = form_for @user, :url => signups_path do |f|
+    - if @user.missing_required_signup_fields?
+      .alert.alert-error= "Please make sure all fields are filled"
+    - if @user.nonunique_email?
+      .alert.alert-error= "Email address is alredy registered"
+    - if @user.invalid_email?
+      .alert.alert-error= "Invalid email address"
+    - if display_password_confirmation_error?
+      .alert.alert-error= "Password confirmation doesn't match"
+    - if display_captcha_error?
+      .alert.alert-error= "Captcha field was incorrect"
+    = f.label t 'signup.form.labels.email'
+    = f.text_field :email
+    %br
+    = f.label t 'signup.form.labels.password'
+    = f.password_field :password
+    %br
+    = f.label t 'signup.form.labels.password_confirmation'
+    = f.password_field :password_confirmation
+    %br
+    = f.label t 'signup.form.labels.country_select'
+    = f.select :country_code, ::COUNTRY_CODES.collect {|c| [t(c, :scope => :countries), c] }, {:prompt => t("signup.form.country_select_prompt")}
+    %br
+    = f.label t 'signup.form.labels.city'
+    = f.text_field :city
+    %br
+    = f.simple_captcha :code_type => "numeric"
+    %br
+    = f.submit "Create Account", :class => "btn btn-large btn-warning"
