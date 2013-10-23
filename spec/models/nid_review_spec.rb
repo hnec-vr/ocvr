@@ -8,7 +8,18 @@ describe NidReview do
   it { should validate_presence_of :nid_data }
   it { should serialize :nid_data }
 
+  let!(:user) { create(:user_with_nid, :national_id => successful_response[:body]["national_id"]) }
   let!(:nid_review) { create(:nid_review, :nid_data => successful_response[:body]) }
+
+  it "should automatically set original user" do
+    nid_review.original_user.should eq user
+  end
+
+  it "should require original user" do
+    user.update_attribute(:national_id, nil)
+    nid_review = build(:nid_review, :nid_data => successful_response[:body])
+    nid_review.valid?.should be_false
+  end
 
   describe "processed?" do
     it "should be false by default" do

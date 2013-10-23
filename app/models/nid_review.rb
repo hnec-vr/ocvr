@@ -1,11 +1,18 @@
 class NidReview < ActiveRecord::Base
   belongs_to :user
+  belongs_to :original_user, :class_name => "User"
 
   serialize :nid_data
 
-  validates_presence_of :user_id, :registry_number, :mother_name, :nid_data
+  validates_presence_of :user_id, :original_user_id, :registry_number, :mother_name, :nid_data
+
+  before_validation :set_original_user, :on => :create
 
   def user
+    User.unscoped { super }
+  end
+
+  def original_user
     User.unscoped { super }
   end
 
@@ -26,5 +33,15 @@ class NidReview < ActiveRecord::Base
         raise ActiveRecord::Rollback
       end
     end
+  end
+
+  def national_id
+    nid_data.try(:[], "national_id")
+  end
+
+  private
+
+  def set_original_user
+    self.original_user = User.find_by_national_id(national_id)
   end
 end

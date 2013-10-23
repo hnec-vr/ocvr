@@ -2,7 +2,8 @@
   %thead
     %tr
       %th= "Email"
-      %th= "Submitted Registry Number"
+      %th= "Original Account Email"
+      %th= "Submitted Family Number"
       %th= "Submitted Mother's Name"
       %th= "Actual NID Data"
       %th= "Created At"
@@ -10,13 +11,45 @@
   - @nid_reviews.each do |r|
     %tr
       %td= r.user.email
+      %td= r.original_user.email
       %td= r.registry_number
       %td= r.mother_name
-      %td= r.nid_data
-      %td= r.created_at
+      %td
+        %table
+          %tr
+            %td= "National ID #:"
+            %td= r.nid_data["national_id"]
+          %tr
+            %td= "Mother's Name:"
+            %td= r.nid_data["mother_name"]
+          %tr
+            %td= "Family Record #:"
+            %td= r.nid_data["registry_number"]
+          %tr
+            %td= "First Name:"
+            %td= r.nid_data["first_name"]
+          %tr
+            %td= "Father's Name:"
+            %td= r.nid_data["father_name"]
+          %tr
+            %td= "Family Name:"
+            %td= r.nid_data["family_name"]
+          %tr
+            %td= "Grandfather's Name:"
+            %td= r.nid_data["grandfather_name"]
+          %tr
+            %td= "Birthdate:"
+            %td= r.nid_data["birth_date"].to_date
+          %tr
+            %td= "Gender"
+            %td= r.nid_data["gender"]
+
+      %td
+        = time_ago_in_words r.created_at
+        = "ago"
       %td
         - if r.processed?
           = r.approved? ? "Approved" : "Denied"
         - else
-          = link_to "Approve", approve_admin_nid_review_path(r), :method => :post
-          = link_to "Deny", deny_admin_nid_review_path(r), :method => :post
+          = link_to "Approve", approve_admin_nid_review_path(r), :method => :post, :class => "btn btn-mini"
+          = link_to "Deny", deny_admin_nid_review_path(r), :method => :post, :class => "btn btn-mini"
