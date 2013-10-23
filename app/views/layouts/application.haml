@@ -4,7 +4,7 @@
     %meta{:charset => "utf-8"}/
     %title= content_for?(:title) ? yield(:title) : "ocvr"
     = csrf_meta_tags
-    = stylesheet_link_tag "application"
+    = stylesheet_link_tag "application", "//fonts.googleapis.com/css?family=Rokkitt|Muli|Open+Sans:400,700,300"
   %body{:class => I18n.locale}
     .container
       %header
