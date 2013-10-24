@@ -1,7 +1,12 @@
-- if request.put?
-  = "Please make sure your passwords match and are at least 6 characters long."
-
-= form_for @user, :url => password_reset_url(@user.password_reset_token) do |f|
-  = f.password_field :password
-  = f.password_field :password_confirmation
-  = f.submit "Save"
+.hero-unit
+  %h2= t('reset_password.header')
+  - if request.put?
+    .alert.alert-error= t('reset_password.form.error')
+  = form_for @user, :url => password_reset_url(@user.password_reset_token) do |f|
+    %label= t('reset_password.form.labels.password')
+    = f.password_field :password
+    %br
+    %label= t('reset_password.form.labels.confirm')
+    = f.password_field :password_confirmation
+    %br
+    = f.submit t('reset_password.form.button'), :class => "btn btn-warning"

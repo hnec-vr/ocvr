@@ -1,6 +1,5 @@
 .hero-unit
-  %h2= "Don't know your National ID Number?"
-  %p= "Please click below to go the the National ID Project website to get your NID number."
-  = link_to "National ID Website", "http://nid.gov.ly", :target => "_blank", :class => "btn btn-info btn-large"
-  = link_to "Back", :back, :class => "btn btn-large"
-
+  %h2= t("nonid.header")
+  %p= t("nonid.paragraph")
+  = link_to t("nonid.button_1"), "http://nid.gov.ly", :target => "_blank", :class => "btn btn-info btn-large"
+  = link_to t("nonid.button_2"), :back, :class => "btn btn-large"

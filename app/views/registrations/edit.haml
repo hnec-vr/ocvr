@@ -1,15 +1,13 @@
 .hero-unit
-  %h3= "Registration Details"
-  = "If you don't know your Constituency #{link_to 'click here', 'http://hnec.ly'}.".html_safe
-  %br
-  %br
+  %h3= t('registration.header')
+  %p= t('registration.paragraph').html_safe
   = form_for current_user, :url => registration_path do |f|
     - if f.object.errors.any?
-      .alert.alert-error= t('registration.form.failure')
+      .alert.alert-error= t('registration.form.error')
     = f.label t 'registration.form.labels.constituency'
     = f.select :constituency_id, Constituency.all.collect {|c| [c.name, c.id]}, {:include_blank => true}, :dir => "rtl"
     %br
     = f.label t 'registration.form.labels.voting_location'
     = f.select :voting_location_id, VotingLocation.all.collect {|l| [l.send(I18n.locale), l.id]}, :include_blank => true
     %br
-    = f.submit "Submit Registration", :class => "btn btn-warning"
+    = f.submit t('registration.form.button'), :class => "btn btn-warning"

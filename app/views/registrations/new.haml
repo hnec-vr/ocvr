@@ -1,22 +1,22 @@
 .hero-unit
-  %h2= "Please enter your 12-digit National ID Number"
-  %p= "You will have a limited number of attempts to submit this form."
+  %h2= t('nidlookup.header')
+  %p= t('nidlookup.paragraph')
   = form_tag findnid_registration_path do
     - if @invalid_nid_length
-      .alert.alert-error= "Please make sure your National ID Number is 12-digits"
+      .alert.alert-error= t('nidlookup.form.errors.length')
     - if @invalid_nid_confirmation
-      .alert.alert-error= "Your confirmation did not match."
+      .alert.alert-error= t('nidlookup.form.errors.confirmation')
     - if @not_found
-      .alert.alert-error= "Your National ID does not exist"
+      .alert.alert-error= t('nidlookup.form.errors.not_found')
     - if @captcha_incorrect
-      .alert.alert-error= "Captcha was incorrect"
+      .alert.alert-error= t('global.captcha_error')
 
-    %label= "National ID Number"
+    %label= t('nidlookup.form.labels.national_id')
     = text_field_tag :nid
     %br
-    %label= "Retype National ID Number"
+    %label= t('nidlookup.form.labels.confirmation')
     = text_field_tag :nid_confirmation
     %br
     = show_simple_captcha(:code_type => "numeric") if @render_captcha
-    = submit_tag "Confirm", :class => "btn btn-warning"
+    = submit_tag t('nidlookup.form.button'), :class => "btn btn-warning"
 

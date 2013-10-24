@@ -1,6 +1,10 @@
-- if request.post?
-  = "Email address was not found"
-
-= form_tag password_resets_path do
-  = text_field_tag :email
-  = submit_tag "Reset Password", :class => "btn"
+.hero-unit
+  %h2= t('initiate_password_reset.header')
+  %p= t('initiate_password_reset.paragraph')
+  - if request.post?
+    .alert.alert-error= t('initiate_password_reset.form_error')
+  = form_tag password_resets_path do
+    %label= t('initiate_password_reset.form_label')
+    = text_field_tag :email
+    %br
+    = submit_tag t('initiate_password_reset.button'), :class => "btn btn-warning"

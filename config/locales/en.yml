@@ -1,7 +1,38 @@
 en:
+  global:
+    captcha_error: "Captcha was incorrect"
+    nav:
+      home: "Home"
+      nid: "National ID Project"
+      faq: "FAQ"
+      account: "My Account"
+      logout: "Sign Out"
+    footer:
+      reset_password: "Reset Password"
+      copyright: "&copy; 2013 Libyan High National Election Commission"
+  home:
+    header: "Welcome"
+    paragraph: "Welcome to the online voter registration website for the Libyan Constitutional Drafting Assembly elections Out-of-Country Voting process. Please make sure you've obtained your National ID number before proceeding with registration."
+    button: "Get Started"
+  start:
+    header: "Do you know your National ID Number?"
+    paragraph: "The National ID Number is required in order to register to vote, according to Law 17 (2013) on the Constitutional Drafting Assembly elections."
+    button_1: "Yes"
+    button_2: "No"
+  nonid:
+    header: "Don't know your National ID Number?"
+    paragraph: "Please click below to go the the National ID Project website to get your NID number."
+    button_1: "National ID Website"
+    button_2: "Back"
   signup:
     form:
       header: "Create an Account"
+      errors:
+        blank: "Please make sure all fields are filled out"
+        email_taken: "Email address is already registered"
+        invalid_email: "Invalid email address"
+        password_length: "Password must be at least 6 characters"
+        password_confirmation: "Password confirmation doesn't match"
       labels:
         email: "Email Address"
         password: "Password"
@@ -9,34 +40,105 @@ en:
         country_select: "Country"
         city: "City"
       country_select_prompt: "Current Country"
-  email_verification:
-    success_flash: "You've successfully verified your email address. Please sign in to complete your registration."
+      button: "Create Account"
+  after_signup:
+    header: "Thank you for signing up"
+    paragraph: "An email has been sent to you with a verification link to activate your account."
   login:
+    header: "Sign In"
+    flash:
+      email_verified: "You've successfully verified your email address. Please sign in to complete your registration."
     form:
       labels:
         email: "Email Address"
         password: "Password"
       submit: "Sign In"
-      failure: "Invalid email/password combination or unverified email address."
+      error: "Invalid email/password combination or unverified email address."
+    create_account: "Create an Account"
+    reset_password: "Reset Password"
   simple_captcha:
     placeholder: ""
     label: "Enter the code in the box:"
     message:
       default: "Secret Code did not match with the Image"
       user: "The secret Image and code were different"
-
+  account:
+    registration_closed: "Voter registration is closed"
+    registration_complete: "You have successfully submitted your voter registration"
+    registration_incomplete: "You have not yet submitted your voter registration"
+    buttons:
+      submit_registration: "Submit your online voter registration form"
+      update_registration: "Update your online voter registration form"
+      view_registration: "View your registration confirmation"
+  nidlookup:
+    header: "Please enter your 12-digit National ID Number"
+    paragraph: "You will have a limited number of attempts to submit this form."
+    form:
+      errors:
+        length: "Please make sure your National ID Number is 12-digits"
+        confirmation: "Your confirmation did not match."
+        not_found: "Your National ID does not exist"
+      labels:
+        national_id: "National ID Number"
+        confirmation: "Retype National ID Number"
+      button: "Confirm"
+  confirmnid:
+    header: "Is this you?"
+    button_1: "Yes"
+    button_2: "No"
+  wrongnid:
+    paragraph: "The Civil Registry Authority has the National ID Number %{national_id} linked to the name %{name}. If you believe this is an error, please consult the <a href='http://cra.gov.ly'>Civil Registry Authority</a> and go to the <a href='http://nid.gov.ly'>National ID Project website</a> to confirm your NID."
+    button_1: "Try Again"
+    button_2: "My Account"
+  reclaimnid:
+    header: "Additional information required"
+    form:
+      error: "Please fill out both fields"
+      labels:
+        family_record_number: "Family Record Number"
+        mothers_name: "Mother's Name"
+      button: "Submit"
+  nidreview:
+    header: "You are not yet registered"
+    paragraph: "We are verifying your information and will contact you shortly."
   registration:
+    header: "Registration Details"
+    paragraph: "If you don't know your Constituency <a href='#'>click here</a>."
     form:
       labels:
         constituency: "Constituency:"
         voting_location: "Voting Location:"
-      failure: "Please make sure you've selected both a constituency and voting location."
-  emails:
-    email_verification:
-      subject: "Please verify your email"
-  activerecord:
-    attributes:
-      user:
-        email: "Emil address"
-        password: "yolo"
-
+      error: "Please make sure you've selected both a constituency and voting location."
+      button: "Submit Registration"
+  registration_confirmation:
+    header: "Registration Complete"
+    closed:
+      paragraph_1: "Voter registration is closed"
+    open:
+      paragraph_1: "Thank you, you have successfully registered to vote."
+      paragraph_2: "You can change your polling location up to <strong>%{changes_allowed} time(s)</strong> if you need but these changes must be completed by the end of registration."
+      paragraph_3: "After the end of registration we will email you a confirmation. Please remember that a photo ID is required at the polls."
+    print: "Print"
+    modify: "Modify registration details"
+  initiate_password_reset:
+    header: "Reset Password"
+    paragraph: "Please confirm your email address to reset your password."
+    form_label: "Your Email Address"
+    form_error: "Email address not found"
+    button: "Reset Password"
+  password_reset_email_sent:
+    header: "We've emailed you"
+    paragraph: "You should receive an email containing a secret password reset link."
+  reset_password:
+    header: "Reset your password"
+    form:
+      error: "Please make sure your passwords match and are at least 6 characters long."
+      labels:
+        password: "New Password"
+        confirm: "Retype New Password"
+      button: "Save Password"
+  email_subjects:
+    email_verification: "Please verify your email"
+    reset_password: "Reset your password"
+    nid_approval: "Your account has been verified"
+    nid_denial: "We could not verify your account"

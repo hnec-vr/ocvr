@@ -1,4 +1,4 @@
 .hero-unit
-  %p= "The Civil Registry Authority has the National ID Number #{session_national_id} linked to the name #{session_name}. If you believe this is an error, please consult the #{link_to 'Civil Registry Authority', 'http://cra.gov.ly'} and go to the #{link_to 'National ID Project website', 'http://nid.gov.ly'} to confirm your NID.".html_safe
-  = link_to "Try Again", new_registration_path, :class => "btn btn-large btn-warning"
-  = link_to "My Account", account_path, :class => "btn btn-large btn-warning"
+  %p= t('wrongnid.paragraph', :national_id => session_national_id, :name => session_name).html_safe
+  = link_to t('wrongnid.button_1'), new_registration_path, :class => "btn btn-large btn-warning"
+  = link_to t('wrongnid.button_2'), account_path, :class => "btn btn-large btn-warning"

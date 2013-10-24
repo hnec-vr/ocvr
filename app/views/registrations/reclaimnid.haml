@@ -1,12 +1,12 @@
 .hero-unit
-  %h2= "Additional information required"
+  %h2= t('reclaimnid.header')
   - if request.post?
-    .alert.alert-error= "Please fill out both fields"
+    .alert.alert-error= t('reclaimnid.form.error')
   = form_tag matchnid_registration_path do
-    = label_tag "Family Record Number:"
+    = label_tag t('reclaimnid.form.labels.family_record_number')
     = text_field_tag :registry_number
     %br
-    = label_tag "Mother's Name:"
+    = label_tag t('reclaimnid.form.labels.mothers_name')
     = text_field_tag :mother_name
     %br
-    = submit_tag "Submit"
+    = submit_tag t('reclaimnid.form.button'), :class => "btn btn-warning"

@@ -1,13 +1,12 @@
 .hero-unit
-  %h2= "Registration Complete"
-
+  %h2= t('registration_confirmation.header')
   - if voter_registration_closed?
-    %p= "Voter registration is closed"
+    %p= t('registration_confirmation.closed.paragraph_1')
   - else
-    %p= "Thank you, you have successfully registered to vote."
+    %p= t('registration_confirmation.open.paragraph_1')
     - if current_user.can_modify_registration?
-      %p= "You can change your polling location up to <strong>#{current_user.registration_changes_allowed} time(s)</strong> if you need but these changes must be completed by the end of registration.".html_safe
-    %p= "After the end of registration we will email you a confirmation. Please remember that a photo ID is required at the polls."
+      %p= t('registration_confirmation.open.paragraph_2', :changes_allowed => current_user.registration_changes_allowed).html_safe
+    %p= t('registration_confirmation.open.paragraph_3')
 
   .registration-details
     = current_user.full_name
@@ -17,7 +16,7 @@
     = current_user.voting_location.send(I18n.locale)
     %br
 
-    = link_to "Print", "#", :class => "btn btn-large btn-warning print"
+    = link_to t('registration_confirmation.print'), "#", :class => "btn btn-large btn-warning print"
     - if current_user.can_modify_registration?
       %br
-      = link_to "Modify registration details", edit_registration_path
+      = link_to t('registration_confirmation.modify'), edit_registration_path

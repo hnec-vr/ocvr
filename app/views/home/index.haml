@@ -1,11 +1,4 @@
-
 .hero-unit
-  %h1= "Welcome!"
-  %p= "Welcome to the online voter registration website for the Libyan Constitutional Drafting Assembly elections Out-of-Country Voting process. Please make sure you've obtained your National ID number before proceeding with registration."
-
-  = link_to "Get Started", start_path, :class => "btn btn-large btn-warning"
--#
-  %p= "- You must know your National Identification (NID) number in order to register to vote."
-
-  %p= "For more information about the elections, please visit our FAQ page at hnec.ly/OCV"
-
+  %h1= t("home.header")
+  %p= t("home.paragraph")
+  = link_to t("home.button"), start_path, :class => "btn btn-large btn-warning"

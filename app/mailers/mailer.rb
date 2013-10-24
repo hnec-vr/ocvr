@@ -5,23 +5,23 @@ class Mailer < ActionMailer::Base
     @user = user
 
     mail :to => user.email,
-         :subject => t("emails.email_verification.subject")
+         :subject => t("email_subjects.email_verification")
   end
 
   def nid_approval(nid_review)
     mail :to => nid_review.user.email,
-         :subject => "Your account has been verified"
+         :subject => t('email_subjects.nid_approval')
   end
 
   def nid_denial(nid_review)
     mail :to => nid_review.user.email,
-         :subject => "We could not verify your account"
+         :subject => t('email_subjects.nid_denial')
   end
 
   def reset_password(user)
     @token = user.password_reset_token
 
     mail :to => user.email,
-         :subject => "Reset your password"
+         :subject => t('email_subjects.reset_password')
   end
 end

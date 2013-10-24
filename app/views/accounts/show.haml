@@ -1,17 +1,17 @@
 .hero-unit
   - if voter_registration_closed?
-    %h2= "Voter registration is closed"
+    %h2= t('account.registration_closed')
   - else
     - if current_user.registration_complete?
-      .alert.alert-success= "You have successfully submitted your voter registration"
+      .alert.alert-success= t('account.registration_complete')
     - else
-      .alert.alert-error= "You have not yet submitted your voter registration"
+      .alert.alert-error= t('account.registration_incomplete')
+
+    - if current_user.registration_complete?
+      = link_to t('account.buttons.view_registration'), end_registration_path, :class => "btn btn-large btn-warning"
 
     - if !current_user.registration_complete?
-      = link_to "Click here to submit your online voter registration form", new_registration_path, :class => "btn btn-large btn-warning"
+      = link_to t('account.buttons.submit_registration'), new_registration_path, :class => "btn btn-large btn-warning"
     - elsif current_user.can_modify_registration?
-      = link_to "Click here to update your online voter registration form", edit_registration_path, :class => "btn btn-large btn-warning"
+      = link_to t('account.buttons.update_registration'), edit_registration_path, :class => "btn btn-large"
 
-  - if current_user.registration_complete?
-    %br
-    = link_to "View your registration confirmation", end_registration_path, :class => "btn btn-large btn-warning"

@@ -12,12 +12,12 @@
           .navbar
             .navbar-inner
               %ul.nav
-                %li= link_to "Home", root_path
-                %li= link_to "Get NID Here", "http://nid.gov.ly", :target => "_blank"
-                %li= link_to "FAQ", faq_path
-                %li= link_to "My Account", account_path
+                %li= link_to t('global.nav.home'), root_path
+                %li= link_to t('global.nav.nid'), "http://nid.gov.ly", :target => "_blank"
+                %li= link_to t('global.nav.faq'), faq_path
+                %li= link_to t('global.nav.account'), account_path
                 - if current_user
-                  %li= link_to "Sign Out", logout_path, :method => :delete
+                  %li= link_to t('global.nav.logout'), logout_path, :method => :delete
         = image_tag "hnec-logo.png", :class => "hnec-logo"
         .locales
           = link_to "العربية", root_path(:locale => "ar")
@@ -25,11 +25,10 @@
       .container.main-container
         .main-content= yield
       .container.footer
-        = link_to "Reset Password", new_password_reset_path
+        = link_to t('global.footer.reset_password'), new_password_reset_path
         %span.divider
         = link_to "HNEC.ly", "http://hnec.ly"
         %span.divider
-        = "&copy; 2013 Libyan High National Election Commission".html_safe
-
+        = t('global.footer.copyright').html_safe
     = javascript_include_tag "application"
     = render partial: "layouts/snippets"

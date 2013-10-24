@@ -1,9 +1,8 @@
 .hero-unit
-  %h2= "Is this you?"
+  %h2= t('confirmnid.header')
   %p.confirm-name= session_name
 
   = form_tag setnid_registration_path, :class => "inline" do
-    = submit_tag "Yes", :class => "btn btn-warning btn-large"
-
+    = submit_tag t('confirmnid.button_1'), :class => "btn btn-warning btn-large"
   = form_tag rejectnid_registration_path, :class => "inline" do
-    = submit_tag "No", :class => "btn btn-warning btn-large"
+    = submit_tag t('confirmnid.button_2'), :class => "btn btn-warning btn-large"

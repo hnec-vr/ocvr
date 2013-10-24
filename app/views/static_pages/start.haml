@@ -1,5 +1,5 @@
 .hero-unit
-  %h2= "Do you know your National ID Number?"
-  %p= "The National ID Number is required in order to register to vote, according to Law 17 (2013) on the Constitutional Drafting Assembly elections."
-  = link_to "Yes", new_signup_path, :class => "btn btn-large btn-info"
-  = link_to "No", nonid_path, :class => "btn btn-large btn-info"
+  %h2= t("start.header")
+  %p= t("start.paragraph")
+  = link_to t("start.button_1"), new_signup_path, :class => "btn btn-large btn-info"
+  = link_to t("start.button_2"), nonid_path, :class => "btn btn-large btn-info"

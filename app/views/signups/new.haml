@@ -1,18 +1,18 @@
 .hero-unit
-  %h3= t 'signup.form.header'
+  %h2= t('signup.form.header')
   = form_for @user, :url => signups_path do |f|
     - if @user.missing_required_signup_fields?
-      .alert.alert-error= "Please make sure all fields are filled"
+      .alert.alert-error= t('signup.form.errors.blank')
     - if @user.nonunique_email?
-      .alert.alert-error= "Email address is alredy registered"
+      .alert.alert-error= t('signup.form.errors.email_taken')
     - if @user.invalid_email?
-      .alert.alert-error= "Invalid email address"
+      .alert.alert-error= t('signup.form.errors.invalid_email')
     - if @user.password_too_short?
-      .alert.alert-error= "Password must be at least 6 characters"
+      .alert.alert-error= t('signup.form.errors.password_length')
     - if display_password_confirmation_error?
-      .alert.alert-error= "Password confirmation doesn't match"
+      .alert.alert-error= t('signup.form.errors.password_confirmation')
     - if !@user.is_captcha_valid? && request.post?
-      .alert.alert-error= "Captcha field was incorrect"
+      .alert.alert-error= t('global.captcha_error')
     = f.label t 'signup.form.labels.email'
     = f.text_field :email
     %br
@@ -30,4 +30,4 @@
     %br
     = f.simple_captcha :code_type => "numeric"
     %br
-    = f.submit "Create Account", :class => "btn btn-large btn-warning"
+    = f.submit t('signup.form.button'), :class => "btn btn-large btn-warning"
