@@ -26,5 +26,10 @@
         .main-content= yield
       .container.footer
         = link_to "Reset Password", new_password_reset_path
+        %span.divider
+        = link_to "HNEC.ly", "http://hnec.ly"
+        %span.divider
+        = "&copy; 2013 Libyan High National Election Commission".html_safe
+
     = javascript_include_tag "application"
     = render partial: "layouts/snippets"
