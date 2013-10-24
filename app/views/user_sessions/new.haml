@@ -7,7 +7,7 @@
     .alert.alert-error= t('login.form.error')
   = form_for @user_session do |f|
     = f.label t("login.form.labels.email")
-    = f.text_field :email
+    = f.text_field :email, :dir => "ltr"
     %br
     = f.label t("login.form.labels.password")
     = f.password_field :password

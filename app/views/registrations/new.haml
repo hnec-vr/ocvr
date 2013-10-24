@@ -17,6 +17,6 @@
     %label= t('nidlookup.form.labels.confirmation')
     = text_field_tag :nid_confirmation, nil, :class => "disable_paste"
     %br
-    = show_simple_captcha(:code_type => "numeric") if @render_captcha
+    .captcha_container= show_simple_captcha(:code_type => "numeric") if @render_captcha
     = submit_tag t('nidlookup.form.button'), :class => "btn btn-warning"
 

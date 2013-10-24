@@ -14,7 +14,7 @@
     - if !@user.is_captcha_valid? && request.post?
       .alert.alert-error= t('global.captcha_error')
     = f.label t 'signup.form.labels.email'
-    = f.text_field :email
+    = f.text_field :email, :dir => "ltr"
     %br
     = f.label t 'signup.form.labels.password'
     = f.password_field :password
@@ -28,6 +28,6 @@
     = f.label t 'signup.form.labels.city'
     = f.text_field :city
     %br
-    = f.simple_captcha :code_type => "numeric"
+    .captcha_container= f.simple_captcha :code_type => "numeric"
     %br
     = f.submit t('signup.form.button'), :class => "btn btn-large btn-warning"

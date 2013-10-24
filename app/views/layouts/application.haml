@@ -1,5 +1,5 @@
 !!! 5
-%html
+%html{:dir => ("rtl" if I18n.locale == :ar)}
   %head
     %meta{:charset => "utf-8"}/
     %title= content_for?(:title) ? yield(:title) : "ocvr"
