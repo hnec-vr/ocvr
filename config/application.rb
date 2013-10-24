@@ -22,6 +22,8 @@ module OCVR
 
     config.time_zone = 'Central Time (US & Canada)'
 
+    config.i18n.fallbacks = [:en]
+
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
