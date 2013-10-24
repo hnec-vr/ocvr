@@ -124,11 +124,11 @@ describe User do
     let(:user) { create(:user) }
 
     it "should set suspended at to current datetime" do
-      frozen_time = Time.now
+      frozen_time = Time.zone.now
       Time.stub(:now => frozen_time)
 
       user.suspend!
-      user.reload.suspended_at.should eq frozen_time
+      user.reload.suspended_at.to_i.should eq frozen_time.to_i
     end
 
     it "should reset nid_lookup_count" do
