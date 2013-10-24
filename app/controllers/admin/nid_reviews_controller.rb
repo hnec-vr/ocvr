@@ -7,6 +7,7 @@ class Admin::NidReviewsController < Admin::BaseController
     nid_review = NidReview.find(params[:id])
     nid_review.approve!
     Mailer.delay.nid_approval(nid_review)
+    Mailer.delay.account_deactivated(nid_review.original_user)
     redirect_to admin_nid_reviews_path
   end
 

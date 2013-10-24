@@ -21,6 +21,7 @@ describe Admin::NidReviewsController do
     end
 
     describe "/approve" do
+      let!(:user) { create(:user_with_nid, :national_id => successful_response[:body]["national_id"]) }
       let!(:nid_review) { create(:nid_review, :nid_data => successful_response[:body]) }
 
       it "should approve nid review" do
@@ -34,13 +35,14 @@ describe Admin::NidReviewsController do
         assert_redirected_to admin_nid_reviews_path
       end
 
-      it "should send email notification" do
+      it "should send email notifications" do
         post :approve, :id => nid_review.id
-        email_deliveries.count.should eq 1
+        email_deliveries.count.should eq 2
       end
     end
 
     describe "/deny" do
+      let!(:user) { create(:user_with_nid, :national_id => successful_response[:body]["national_id"]) }
       let!(:nid_review) { create(:nid_review, :nid_data => successful_response[:body]) }
 
       it "should approve nid review" do
