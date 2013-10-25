@@ -16,6 +16,10 @@ gem 'nestful'
 gem 'valid_email'
 gem 'pg'
 
+group :production do
+  gem 'airbrake'
+end
+
 group :development, :test do
   gem 'rspec-rails'
 end

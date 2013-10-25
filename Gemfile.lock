@@ -35,6 +35,9 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     addressable (2.3.5)
+    airbrake (3.1.14)
+      builder
+      json
     arel (3.0.2)
     authlogic (3.3.0)
       activerecord (>= 3.2)
@@ -164,6 +167,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   authlogic
   bootstrap-sass (~> 2.3.2.1)
   database_cleaner
