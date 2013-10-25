@@ -55,4 +55,16 @@ describe NidReview do
       nid_review.approve!
     end
   end
+
+  describe "#reverse_approval!" do
+    it "resets approval status" do
+      nid_review.should_receive(:update_attribute).with(:approved, nil)
+      nid_review.reverse_approval!
+    end
+
+    it "should swap user nids" do
+      User.should_receive(:swap_nids!).with(nid_review.user, nid_review.original_user)
+      nid_review.reverse_approval!
+    end
+  end
 end

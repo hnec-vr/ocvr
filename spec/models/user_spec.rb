@@ -97,6 +97,15 @@ describe User do
     end
   end
 
+  describe "reactivate!" do
+    let(:user) { create(:verified_user, :active => false) }
+
+    it "should reactivate user" do
+      user.reactivate!
+      user.reload.active?.should be_true
+    end
+  end
+
   describe "claim_nid!" do
     let!(:old_user) { create(:user_with_nid, :national_id => nid) }
     let!(:new_user) { create(:verified_user) }
@@ -117,6 +126,21 @@ describe User do
       new_user.claim_nid!(successful_response[:body])
       new_user.national_id.should == nid
       new_user.reload.national_id.should == nid
+    end
+  end
+
+  describe ".swap_nids!" do
+    let!(:active_user) { create(:user_with_nid, :national_id => nid) }
+    let!(:inactive_user) { create(:user_with_nid, :national_id => nid, :active => false) }
+
+    it "should deactivate active user" do
+      active_user.should_receive(:deactivate!)
+      User.swap_nids!(active_user, inactive_user)
+    end
+
+    it "should reactive deactivated user" do
+      inactive_user.should_receive(:reactivate!)
+      User.swap_nids!(active_user, inactive_user)
     end
   end
 

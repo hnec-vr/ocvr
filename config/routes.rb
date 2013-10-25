@@ -3,6 +3,7 @@ OCVR::Application.routes.draw do
     resources :nid_reviews do
       post :approve, :on => :member
       post :deny,    :on => :member
+      post :reverse_approval, :on => :member
     end
 
     root :to => "nid_reviews#index"

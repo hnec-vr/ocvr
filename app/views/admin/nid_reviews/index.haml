@@ -50,6 +50,8 @@
       %td
         - if r.processed?
           = r.approved? ? "Approved" : "Denied"
+          - if r.approved?
+            = link_to "Reverse Approval", reverse_approval_admin_nid_review_path(r), :method => :post, :class => "btn btn-mini"
         - else
           = link_to "Approve", approve_admin_nid_review_path(r), :method => :post, :class => "btn btn-mini"
           = link_to "Deny", deny_admin_nid_review_path(r), :method => :post, :class => "btn btn-mini"

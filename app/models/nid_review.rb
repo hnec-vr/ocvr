@@ -37,6 +37,17 @@ class NidReview < ActiveRecord::Base
     end
   end
 
+  def reverse_approval!
+    transaction do
+      begin
+        update_attribute :approved, nil
+        User.swap_nids!(user, original_user)
+      rescue
+        raise ActiveRecord::Rollback
+      end
+    end
+  end
+
   def national_id
     nid_data.try(:[], "national_id")
   end

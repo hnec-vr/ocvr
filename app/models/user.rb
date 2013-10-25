@@ -34,12 +34,27 @@ class User < ActiveRecord::Base
     update_attribute(:active, false)
   end
 
+  def reactivate!
+    update_attribute(:active, true)
+  end
+
   def claim_nid!(attrs)
     transaction do
       begin
         old_user = User.find_by_national_id attrs["national_id"]
         old_user.deactivate!
         update_attributes!(attrs, :without_protection => true)
+      rescue
+        raise ActiveRecord::Rollback
+      end
+    end
+  end
+
+  def self.swap_nids!(active_user, inactive_user)
+    transaction do
+      begin
+        active_user.deactivate!
+        inactive_user.reactivate!
       rescue
         raise ActiveRecord::Rollback
       end

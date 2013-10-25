@@ -17,4 +17,10 @@ class Admin::NidReviewsController < Admin::BaseController
     Mailer.delay.nid_denial(nid_review)
     redirect_to admin_nid_reviews_path
   end
+
+  def reverse_approval
+    nid_review = NidReview.find(params[:id])
+    nid_review.reverse_approval!
+    redirect_to admin_nid_reviews_path
+  end
 end
