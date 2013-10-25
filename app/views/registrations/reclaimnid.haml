@@ -4,7 +4,7 @@
     .alert.alert-error= t('reclaimnid.form.error')
   = form_tag matchnid_registration_path do
     = label_tag t('reclaimnid.form.labels.family_record_number')
-    = text_field_tag :registry_number
+    = text_field_tag :registry_number, nil, :dir => "ltr"
     %br
     = label_tag t('reclaimnid.form.labels.mothers_name')
     = text_field_tag :mother_name

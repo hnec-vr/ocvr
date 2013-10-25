@@ -12,11 +12,11 @@
       .alert.alert-error= t('global.captcha_error')
 
     %label= t('nidlookup.form.labels.national_id')
-    = text_field_tag :nid
+    = text_field_tag :nid, nil, :dir => "ltr"
     %br
     %label= t('nidlookup.form.labels.confirmation')
-    = text_field_tag :nid_confirmation, nil, :class => "disable_paste"
+    = text_field_tag :nid_confirmation, nil, :class => "disable_paste", :dir => "ltr"
     %br
-    .captcha_container= show_simple_captcha(:code_type => "numeric") if @render_captcha
+    .captcha_container{:dir => "ltr"}= show_simple_captcha(:code_type => "numeric") if @render_captcha
     = submit_tag t('nidlookup.form.button'), :class => "btn btn-warning"
 
