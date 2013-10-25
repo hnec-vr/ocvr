@@ -4,8 +4,8 @@ class RegistrationsController < ApplicationController
                   :only => [:new, :findnid, :confirmnid, :setnid,
                               :reclaimnid, :matchnid, :nidreview]
   before_filter :ensure_national_id_set, :only => [:edit, :update]
-  before_filter :ensure_completed_registration, :only => :end
-  before_filter :ensure_voter_registration_open, :except => :end
+  before_filter :ensure_completed_registration,  :only   => [:end, :print]
+  before_filter :ensure_voter_registration_open, :except => [:end, :print]
 
   def new
     @render_captcha = true if current_user.nid_lookup_count >= attempts_allowed_without_captcha
@@ -110,6 +110,10 @@ class RegistrationsController < ApplicationController
   end
 
   def end
+  end
+
+  def print
+    render :print, :layout => false
   end
 
   private

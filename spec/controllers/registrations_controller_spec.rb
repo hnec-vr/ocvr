@@ -364,5 +364,27 @@ describe RegistrationsController do
         end
       end
     end
+
+    describe '/print' do
+      context "unregistered user" do
+        let(:user) { create(:user_with_nid) }
+        before { sign_in(user) }
+
+        it "redirects to registration form" do
+          get :print
+          assert_redirected_to edit_registration_path
+        end
+      end
+
+      context "registered user" do
+        let(:user) { create(:registered_user) }
+        before { sign_in(user) }
+
+        it "loads successfully" do
+          get :print
+          assert_response :success
+        end
+      end
+    end
   end
 end

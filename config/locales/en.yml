@@ -120,6 +120,11 @@ en:
       paragraph_3: "After the end of registration we will email you a confirmation. Please remember that a photo ID is required at the polls."
     print: "Print"
     modify: "Modify registration details"
+  print_registration:
+    name: "Name:"
+    constituency: "Constituency:"
+    voting_location: "Voting Location:"
+    paragraph: "These registration details are as of %{date} for National ID Number %{national_id}"
   initiate_password_reset:
     header: "Reset Password"
     paragraph: "Please confirm your email address to reset your password."

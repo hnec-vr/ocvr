@@ -16,7 +16,7 @@
     = current_user.voting_location.send(I18n.locale)
     %br
 
-    = link_to t('registration_confirmation.print'), "#", :class => "btn btn-large btn-warning print"
+    = link_to t('registration_confirmation.print'), print_registration_path, :class => "btn btn-large btn-warning print"
     - if current_user.can_modify_registration?
       %br
       = link_to t('registration_confirmation.modify'), edit_registration_path

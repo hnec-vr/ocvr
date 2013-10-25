@@ -25,6 +25,7 @@ OCVR::Application.routes.draw do
     post :matchnid
     get :nidreview
     get :end
+    get :print
   end
 
   resource :account

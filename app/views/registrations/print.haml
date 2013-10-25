@@ -1,0 +1,20 @@
+!!! 5
+%html{:dir => ("rtl" if I18n.locale == :ar)}
+  %head
+    %meta{:charset => "utf-8"}/
+    %title= content_for?(:title) ? yield(:title) : "ocvr"
+    = csrf_meta_tags
+    = stylesheet_link_tag "application", "//fonts.googleapis.com/css?family=Rokkitt|Muli|Open+Sans:400,700,300", :medial => :all
+  %body.print{:class => I18n.locale}
+    .receipt
+      = t('print_registration.name')
+      = current_user.full_name
+      %br
+      = t('print_registration.constituency')
+      = current_user.constituency.name
+      %br
+      = t('print_registration.voting_location')
+      = current_user.voting_location.send(I18n.locale)
+      %br
+      %br
+      = t('print_registration.paragraph', :date => Date.today, :national_id => current_user.national_id)
