@@ -1,5 +1,5 @@
 .hero-unit
-  %h2= t('reclaimnid.header')
+  %h3= t('reclaimnid.header')
   - if request.post?
     .alert.alert-error= t('reclaimnid.form.error')
   = form_tag matchnid_registration_path do

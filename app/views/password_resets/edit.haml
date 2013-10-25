@@ -1,5 +1,6 @@
 .hero-unit
   %h2= t('reset_password.header')
+  %p= t('reset_password.paragraph')
   - if request.put?
     .alert.alert-error= t('reset_password.form.error')
   = form_for @user, :url => password_reset_url(@user.password_reset_token) do |f|

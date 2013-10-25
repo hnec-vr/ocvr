@@ -1,5 +1,6 @@
 .hero-unit
-  %h2= t('confirmnid.header')
+  %h3= t('confirmnid.header')
+  %p= t('confirmnid.paragraph')
   %p.confirm-name= session_name
 
   = form_tag setnid_registration_path, :class => "inline" do

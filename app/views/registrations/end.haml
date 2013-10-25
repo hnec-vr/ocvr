@@ -3,11 +3,11 @@
   - if voter_registration_closed?
     %p= t('registration_confirmation.closed.paragraph_1')
   - else
-    %p= t('registration_confirmation.open.paragraph_1')
     - if current_user.can_modify_registration?
-      %p= t('registration_confirmation.open.paragraph_2', :changes_allowed => current_user.registration_changes_allowed).html_safe
-    %p= t('registration_confirmation.open.paragraph_3')
+      %p= t('registration_confirmation.open.paragraph_1', :changes_allowed => current_user.registration_changes_allowed).html_safe
+    %p= t('registration_confirmation.open.paragraph_2')
 
+  %p= t('registration_confirmation.details')
   .registration-details
     = current_user.full_name
     %br

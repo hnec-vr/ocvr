@@ -1,9 +1,10 @@
 en:
   global:
+    title: "Libya OCV"
     captcha_error: "Captcha was incorrect"
     nav:
       home: "Home"
-      nid: "National ID Project"
+      nid: "Verify National Number"
       faq: "FAQ"
       account: "My Account"
       logout: "Sign Out"
@@ -12,27 +13,27 @@ en:
       copyright: "&copy; 2013 Libyan High National Election Commission"
   home:
     header: "Welcome"
-    paragraph: "Welcome to the online voter registration website for the Libyan Constitutional Drafting Assembly elections Out-of-Country Voting process. Please make sure you've obtained your National ID number before proceeding with registration."
+    paragraph: "Welcome to the online voter registration website for the out-of-country voting process for the Libyan Constitutional Drafting Assembly elections.  You must register here in order to vote abroad. Please make sure you have obtained your National Number before proceeding with registration."
     button: "Get Started"
   start:
-    header: "Do you know your National ID Number?"
-    paragraph: "The National ID Number is required in order to register to vote, according to Law 17 (2013) on the Constitutional Drafting Assembly elections."
+    header: "Do you know your National Number?"
+    paragraph: "The National Number is required in order to register to vote, according to Law 17 (2013) on the Constitutional Drafting Assembly elections."
     button_1: "Yes"
     button_2: "No"
   nonid:
-    header: "Don't know your National ID Number?"
-    paragraph: "Please click below to go the the National ID Project website to get your NID number."
-    button_1: "National ID Website"
+    header: "Don't know your National Number?"
+    paragraph: "Please click below to go the the National Number Project website to check your National Number."
+    button_1: "National Number Website"
     button_2: "Back"
   signup:
     form:
       header: "Create an Account"
       errors:
         blank: "Please make sure all fields are filled out"
-        email_taken: "Email address is already registered"
+        email_taken: "This email address is already associated with an account"
         invalid_email: "Invalid email address"
         password_length: "Password must be at least 6 characters"
-        password_confirmation: "Password confirmation doesn't match"
+        password_confirmation: "The passwords you entered do not match"
       labels:
         email: "Email Address"
         password: "Password"
@@ -42,8 +43,8 @@ en:
       country_select_prompt: "Current Country"
       button: "Create Account"
   after_signup:
-    header: "Thank you for signing up"
-    paragraph: "An email has been sent to you with a verification link to activate your account."
+    header: "Thank you for creating an account"
+    paragraph: "An email has been sent to you with a verification link. When you receive this email, please click on the link provided to confirm your account."
   login:
     header: "Sign In"
     flash:
@@ -64,67 +65,72 @@ en:
       user: "The secret Image and code were different"
   account:
     registration_closed: "Voter registration is closed"
-    registration_complete: "You have successfully submitted your voter registration"
+    registration_complete: "You have successfully registered to vote for out-of-country voting."
     registration_incomplete: "You have not yet submitted your voter registration"
     buttons:
       submit_registration: "Submit your online voter registration form"
       update_registration: "Update your online voter registration form"
       view_registration: "View your registration confirmation"
   nidlookup:
-    header: "Please enter your 12-digit National ID Number"
-    paragraph: "You will have a limited number of attempts to submit this form."
+    header: "Please enter your 12-digit National Number"
+    paragraph: "You will have a limited number of attempts to complete this form."
     form:
       errors:
-        length: "Please make sure your National ID Number is 12-digits"
-        confirmation: "Your confirmation did not match."
-        not_found: "Your National ID does not exist"
+        length: "Please make sure that the National Number you enter is 12 digits."
+        confirmation: "The National Numbers you entered do not match."
+        not_found: "The National Number you entered does not appear in the database. Please check your National Number and try again."
       labels:
-        national_id: "National ID Number"
-        confirmation: "Retype National ID Number"
+        national_id: "National Number"
+        confirmation: "Retype National Number"
       button: "Confirm"
   confirmnid:
     header: "Is this you?"
+    paragraph: "These are the names associated with the National Number you entered. Please note that there may be variations in the spelling of your name."
     button_1: "Yes"
     button_2: "No"
   wrongnid:
-    paragraph: "The Civil Registry Authority has the National ID Number %{national_id} linked to the name %{name}. If you believe this is an error, please consult the <a href='http://cra.gov.ly'>Civil Registry Authority</a> and go to the <a href='http://nid.gov.ly'>National ID Project website</a> to confirm your NID."
+    paragraph: "The National Number Project has the National Number %{national_id} linked to the name %{name}. If you believe this is an error, please go to the <a href='http://nid.gov.ly'>National Number Project website</a> to confirm your National Number."
     button_1: "Try Again"
     button_2: "My Account"
   reclaimnid:
-    header: "Additional information required"
+    header: "Additional information is required to verify your identity"
     form:
       error: "Please fill out both fields"
       labels:
-        family_record_number: "Family Record Number"
+        family_record_number: "Family Book Record Number"
         mothers_name: "Mother's Name"
       button: "Submit"
   nidreview:
     header: "You are not yet registered"
-    paragraph: "We are verifying your information and will contact you shortly."
+    paragraph: "We are verifying your information. We will contact you shortly."
+  suspended:
+    header: "Your account has been suspended."
+    paragraph: "Please wait 4 hours and try again. Please verify your <a href='http://nid.gov.ly'>National Number</a>."
   registration:
     header: "Registration Details"
     paragraph: "If you don't know your Constituency <a href='#'>click here</a>."
     form:
       labels:
-        constituency: "Constituency:"
-        voting_location: "Voting Location:"
+        constituency: "Select the constituency for which you would like to vote:"
+        voting_location: "Select your preferred voting location:"
       error: "Please make sure you've selected both a constituency and voting location."
+      verify: "Please verify the above information to ensure it is correct."
       button: "Submit Registration"
   registration_confirmation:
-    header: "Registration Complete"
+    header: "You have successfully registered to vote"
     closed:
       paragraph_1: "Voter registration is closed"
     open:
-      paragraph_1: "Thank you, you have successfully registered to vote."
-      paragraph_2: "You can change your polling location up to <strong>%{changes_allowed} time(s)</strong> if you need but these changes must be completed by the end of registration."
-      paragraph_3: "After the end of registration we will email you a confirmation. Please remember that a photo ID is required at the polls."
-    print: "Print"
+      paragraph_1: "If you need to change either the voting location or the constituency for which you wish to cast your vote, you may do so up to <strong>%{changes_allowed} time(s)</strong>. These changes must be completed by the end of the voter registration period."
+      paragraph_2: "After the end of registration we will email you a confirmation. Please remember that a photo ID is required at the polls."
+    details: "These are the details of your registration:"
+    print: "Print for your records"
     modify: "Modify registration details"
   print_registration:
     name: "Name:"
     constituency: "Constituency:"
     voting_location: "Voting Location:"
-    paragraph: "These registration details are as of %{date} for National ID Number %{national_id}"
+    paragraph: "These registration details are as of %{date} for NationalNumber %{national_id}"
   initiate_password_reset:
     header: "Reset Password"
     paragraph: "Please confirm your email address to reset your password."
@@ -136,6 +142,7 @@ en:
     paragraph: "You should receive an email containing a secret password reset link."
   reset_password:
     header: "Reset your password"
+    paragraph: "Please enter your new password twice in the fields below"
     form:
       error: "Please make sure your passwords match and are at least 6 characters long."
       labels:

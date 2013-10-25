@@ -10,4 +10,5 @@
     = f.label t 'registration.form.labels.voting_location'
     = f.select :voting_location_id, VotingLocation.all.collect {|l| [l.send(I18n.locale), l.id]}, :include_blank => true
     %br
-    = f.submit t('registration.form.button'), :class => "btn btn-warning"
+    %p= t('registration.form.verify')
+    = f.submit t('registration.form.button'), :class => "btn btn-warning btn-large"
