@@ -38,7 +38,7 @@ en:
         email: "Email Address"
         password: "Password"
         password_confirmation: "Password Confirmation"
-        country_select: "Country"
+        country_select: "Current Country"
         city: "City"
       country_select_prompt: "Current Country"
       button: "Create Account"
