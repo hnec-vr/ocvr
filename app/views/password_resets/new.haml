@@ -5,6 +5,6 @@
     .alert.alert-error= t('initiate_password_reset.form_error')
   = form_tag password_resets_path do
     %label= t('initiate_password_reset.form_label')
-    = text_field_tag :email, :dir => "ltr"
+    = text_field_tag :email, nil, :dir => "ltr"
     %br
     = submit_tag t('initiate_password_reset.button'), :class => "btn btn-warning"
