@@ -7,7 +7,7 @@ class PasswordResetsController < ApplicationController
   def create
     if user = User.find_by_email(params[:email])
       user.regenerate_password_reset_token!
-      Mailer.delay.reset_password(user)
+      I18nMailer.deliver Mailer, :reset_password, user
       redirect_to sent_password_resets_path
     else
       render :new

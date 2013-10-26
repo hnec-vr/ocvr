@@ -9,7 +9,7 @@ class SignupsController < ApplicationController
     @user = User.new(params[:user])
 
     if @user.save_with_captcha
-      Mailer.delay.email_verification(@user)
+      I18nMailer.deliver Mailer, :email_verification, @user
       current_user_session.destroy
       redirect_to confirm_path
     else

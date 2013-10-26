@@ -28,7 +28,7 @@ class RegistrationsController < ApplicationController
 
     if current_user.nid_lookup_count >= 5
       current_user.suspend!
-      Mailer.delay.account_suspended(current_user)
+      I18nMailer.deliver Mailer, :account_suspended, current_user
       redirect_to suspended_path and return
     end
 
@@ -87,7 +87,7 @@ class RegistrationsController < ApplicationController
                         :registry_number => params[:registry_number],
                         :mother_name => params[:mother_name],
                         :nid_data => session[:nid]
-      Mailer.delay.nid_claim_received(current_user)
+      I18nMailer.deliver Mailer, :nid_claim_received, current_user
 
       redirect_to nidreview_registration_path
     else

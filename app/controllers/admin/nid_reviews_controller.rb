@@ -6,7 +6,7 @@ class Admin::NidReviewsController < Admin::BaseController
   def approve
     nid_review = NidReview.find(params[:id])
     nid_review.approve!
-    Mailer.delay.nid_approval(nid_review.user)
+    I18nMailer.deliver Mailer, :nid_approval, nid_review.user
 
     redirect_to admin_nid_reviews_path
   end
@@ -14,7 +14,7 @@ class Admin::NidReviewsController < Admin::BaseController
   def deny
     nid_review = NidReview.find(params[:id])
     nid_review.deny!
-    Mailer.delay.nid_denial(nid_review.user)
+    I18nMailer.deliver Mailer, :nid_denial, nid_review.user
 
     redirect_to admin_nid_reviews_path
   end
