@@ -7,5 +7,5 @@ CSV.foreach assets_path.join("voting_locations.csv") do |row|
 end
 
 CSV.foreach assets_path.join("constituencies.csv") do |row|
-  Constituency.create!(:name => row[0], :en_translation => row[1])
+  Constituency.create!(:name => row[0], :en_translation => row[1], :main_district => row[2])
 end

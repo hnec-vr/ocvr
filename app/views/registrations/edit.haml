@@ -5,7 +5,7 @@
     - if f.object.errors.any?
       .alert.alert-error= t('registration.form.error')
     = f.label t 'registration.form.labels.constituency'
-    = f.select :constituency_id, Constituency.all.collect {|c| [c.name, c.id]}, {:include_blank => true}, :dir => "rtl"
+    = f.select :constituency_id, constituency_grouped_options, {:include_blank => true}, :dir => "rtl"
     %br
     = f.label t 'registration.form.labels.voting_location'
     = f.select :voting_location_id, VotingLocation.all.collect {|l| [l.send(I18n.locale), l.id]}, :include_blank => true

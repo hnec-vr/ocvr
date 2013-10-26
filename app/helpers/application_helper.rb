@@ -10,4 +10,14 @@ module ApplicationHelper
   def display_password_confirmation_error?
     @user.errors[:password].count == 1 && @user.nonmatching_password_confirmation?
   end
+
+  def constituency_grouped_options
+    options = []
+
+    Constituency.all.group_by(&:main_district).each do |district, constituencies|
+      options << [district, constituencies.collect {|c| [c.name, c.id]}]
+    end
+
+    options
+  end
 end
