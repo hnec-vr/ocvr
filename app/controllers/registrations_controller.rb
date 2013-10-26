@@ -85,6 +85,8 @@ class RegistrationsController < ApplicationController
                         :registry_number => params[:registry_number],
                         :mother_name => params[:mother_name],
                         :nid_data => session[:nid]
+      Mailer.delay.nid_claim_received(current_user)
+
       redirect_to nidreview_registration_path
     else
       render :reclaimnid

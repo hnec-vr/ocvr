@@ -291,6 +291,12 @@ describe RegistrationsController do
           post :matchnid, :registry_number => existing_user.registry_number,
                           :mother_name => "a name"
         end
+
+        it "should send email verification email" do
+          post :matchnid, :registry_number => existing_user.registry_number,
+                          :mother_name => "a name"
+          email_deliveries.count.should eq 1
+        end
       end
 
       it_behaves_like "a new registration" do

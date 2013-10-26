@@ -23,6 +23,11 @@ class Mailer < ActionMailer::Base
          :subject => t('email_subjects.account_deactivated')
   end
 
+  def nid_claim_received(user)
+    mail :to => user.email,
+         :subject => t('email_subjects.nid_claim_received')
+  end
+
   def reset_password(user)
     @token = user.password_reset_token
 
