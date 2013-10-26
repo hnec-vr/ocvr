@@ -5,42 +5,9 @@ describe User do
   it { should validate_presence_of :city }
   it { should validate_presence_of :country_code }
   it { should validate_uniqueness_of :email }
-  it { should validate_uniqueness_of :national_id }
 
   let(:user) { build(:user) }
   let(:nid)  { successful_response[:body]["national_id"] }
-
-  describe "validations" do
-    describe "#national_id should scope uniquness by #active" do
-      describe "should allow only one active user per national id" do
-        it "should save a user if no other active users have the same nid" do
-          first_user = create(:user_with_nid)
-          second_user = create(:user_with_nid)
-          second_user.new_record?.should be_false
-        end
-
-        it "should not save a user if another active user has the same nid" do
-          first_user = create(:user_with_nid)
-          expect {
-            second_user = create(:user_with_nid, :national_id => first_user.national_id)
-
-          }.to raise_error ActiveRecord::RecordInvalid
-        end
-      end
-
-      it "should allow multiple inactive users per national id" do
-        first_user = create(:user_with_nid, :active => false)
-        second_user = create(:user_with_nid, :active => false, :national_id => first_user.national_id)
-        second_user.new_record?.should be_false
-      end
-
-      it "should allow one active user and one inactive user per national id" do
-        first_user = create(:user_with_nid, :active => false)
-        second_user = create(:user_with_nid, :national_id => first_user.national_id)
-        second_user.new_record?.should be_false
-      end
-    end
-  end
 
   context "when password is changed" do
     before do
@@ -97,50 +64,12 @@ describe User do
     end
   end
 
-  describe "reactivate!" do
+  describe "activate!" do
     let(:user) { create(:verified_user, :active => false) }
 
-    it "should reactivate user" do
-      user.reactivate!
+    it "should activate user" do
+      user.activate!
       user.reload.active?.should be_true
-    end
-  end
-
-  describe "claim_nid!" do
-    let!(:old_user) { create(:user_with_nid, :national_id => nid) }
-    let!(:new_user) { create(:verified_user) }
-
-    it "should deactive existing user with same nid" do
-      User.any_instance.stub(:update_attributes!)
-      User.any_instance.should_receive(:deactivate!).once
-      new_user.claim_nid!(successful_response[:body])
-    end
-
-    it "should use a database tranaction" do
-      User.any_instance.stub(:update_attributes!).and_raise(ArgumentError)
-      new_user.claim_nid!(successful_response[:body])
-      old_user.reload.active?.should be_true
-    end
-
-    it "should save user successfully with nid" do
-      new_user.claim_nid!(successful_response[:body])
-      new_user.national_id.should == nid
-      new_user.reload.national_id.should == nid
-    end
-  end
-
-  describe ".swap_nids!" do
-    let!(:active_user) { create(:user_with_nid, :national_id => nid) }
-    let!(:inactive_user) { create(:user_with_nid, :national_id => nid, :active => false) }
-
-    it "should deactivate active user" do
-      active_user.should_receive(:deactivate!)
-      User.swap_nids!(active_user, inactive_user)
-    end
-
-    it "should reactive deactivated user" do
-      inactive_user.should_receive(:reactivate!)
-      User.swap_nids!(active_user, inactive_user)
     end
   end
 
@@ -265,15 +194,20 @@ describe User do
     end
   end
 
-  describe '.find_verified' do
+  describe '.find_active_and_verified' do
     it 'should not return user with unverified email' do
       user.save
-      User.find_verified(user.email).should be_nil
+      User.find_active_and_verified(user.email).should be_nil
     end
 
     it 'should return user with verified email' do
       user = create(:verified_user)
-      User.find_verified(user.email).should eq user
+      User.find_active_and_verified(user.email).should eq user
+    end
+
+    it "should not return inactive user with verified email" do
+      user = create(:verified_user, :active => false)
+      User.find_active_and_verified(user.email).should be_nil
     end
   end
 

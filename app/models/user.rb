@@ -19,46 +19,21 @@ class User < ActiveRecord::Base
   validates :email, :presence => true, :uniqueness => true, :email => true
   validates_presence_of :password, :password_confirmation, :if => :should_validate_password?
   validates_presence_of :constituency_id, :voting_location_id, :if => :validate_registration
-  validates_uniqueness_of :national_id, :allow_nil => true, :scope => :active, :if => :active?
 
   before_validation :generate_email_verification_token, :on => :create
   before_update :clear_password_reset_token, :if => :password_changed?
   before_update :increment_registration_submission_count,
     :if => Proc.new {|user| user.validate_registration && user.constituency_id_changed? or user.voting_location_id_changed? }
 
-  default_scope :conditions => {:active => true}
-
   scope :verified, where(:email_verified => true)
+  scope :active, where(:active => true)
 
   def deactivate!
     update_attribute(:active, false)
   end
 
-  def reactivate!
+  def activate!
     update_attribute(:active, true)
-  end
-
-  def claim_nid!(attrs)
-    transaction do
-      begin
-        old_user = User.find_by_national_id attrs["national_id"]
-        old_user.deactivate!
-        update_attributes!(attrs, :without_protection => true)
-      rescue
-        raise ActiveRecord::Rollback
-      end
-    end
-  end
-
-  def self.swap_nids!(active_user, inactive_user)
-    transaction do
-      begin
-        active_user.deactivate!
-        inactive_user.reactivate!
-      rescue
-        raise ActiveRecord::Rollback
-      end
-    end
   end
 
   def suspend!
@@ -104,8 +79,8 @@ class User < ActiveRecord::Base
     registration_changes_allowed > 0
   end
 
-  def self.find_verified(email)
-    self.verified.find_by_email(email)
+  def self.find_active_and_verified(email)
+    self.active.verified.find_by_email(email)
   end
 
   def password_too_short?

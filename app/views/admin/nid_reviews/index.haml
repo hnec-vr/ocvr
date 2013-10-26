@@ -1,24 +1,36 @@
 %table.table.table-bordered.table-striped
   %thead
     %tr
+      %th= "NID"
       %th= "Email"
-      %th= "Original Account Email"
       %th= "Submitted Family Number"
       %th= "Submitted Mother's Name"
+      %th= "NID Cluster"
       %th= "Actual NID Data"
-      %th= "Created At"
-      %th= "Actions"
+      %th= "Submitted At"
+      %th= "Status"
   - @nid_reviews.each do |r|
     %tr
+      %td= r.national_id
       %td= r.user.email
-      %td= r.original_user.email
       %td= r.registry_number
       %td= r.mother_name
       %td
-        %table
-          %tr
-            %td= "National ID #:"
-            %td= r.nid_data["national_id"]
+        = link_to "View NID Cluster", "#", :class => "btn btn-mini btn-inverse expand-table"
+        %table.subtable
+          - User.where(:national_id => r.national_id).each do |u|
+            - next if u == r.user
+            %tr
+              %td= u.email
+              %td= u.active? ? "active" : "deactivated"
+              %td
+                - if u.active?
+                  = link_to "Deactivate", deactivate_admin_user_path(u), :class => "btn btn-mini", :method => :post
+                - else
+                  = link_to "Reactivate", activate_admin_user_path(u), :class => "btn btn-mini", :method => :post
+      %td
+        = link_to "View NID Metadata", "#", :class => "btn btn-mini btn-inverse expand-table"
+        %table.subtable
           %tr
             %td= "Mother's Name:"
             %td= r.nid_data["mother_name"]
@@ -43,15 +55,23 @@
           %tr
             %td= "Gender"
             %td= r.nid_data["gender"]
-
       %td
         = time_ago_in_words r.created_at
         = "ago"
       %td
         - if r.processed?
-          = r.approved? ? "Approved" : "Denied"
-          - if r.approved?
-            = link_to "Reverse Approval", reverse_approval_admin_nid_review_path(r), :method => :post, :class => "btn btn-mini"
+          = r.verdict
         - else
-          = link_to "Approve", approve_admin_nid_review_path(r), :method => :post, :class => "btn btn-mini"
-          = link_to "Deny", deny_admin_nid_review_path(r), :method => :post, :class => "btn btn-mini"
+          = link_to "Approve", approve_admin_nid_review_path(r), :method => :post, :class => "btn btn-mini btn-success"
+          = link_to "Deny", deny_admin_nid_review_path(r), :method => :post, :class => "btn btn-mini btn-danger"
+
+- content_for :javascripts do
+  :erb
+    <script>
+      $(function() {
+        $(".expand-table").click(function(e) {
+          e.preventDefault()
+          $(this).hide().siblings("table").show()
+        });
+      });
+    </script>

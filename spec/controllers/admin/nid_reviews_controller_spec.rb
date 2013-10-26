@@ -37,7 +37,7 @@ describe Admin::NidReviewsController do
 
       it "should send email notifications" do
         post :approve, :id => nid_review.id
-        email_deliveries.count.should eq 2
+        email_deliveries.count.should eq 1
       end
     end
 
@@ -59,22 +59,6 @@ describe Admin::NidReviewsController do
       it "should send email notification" do
         post :deny, :id => nid_review.id
         email_deliveries.count.should eq 1
-      end
-    end
-
-    describe "/reverse_approval" do
-      let!(:user) { create(:user_with_nid, :national_id => successful_response[:body]["national_id"]) }
-      let!(:nid_review) { create(:nid_review, :nid_data => successful_response[:body]) }
-
-      it "should reverse approval of nid review" do
-        NidReview.any_instance.should_receive(:reverse_approval!)
-        post :reverse_approval, :id => nid_review.id
-      end
-
-      it "should redirect to index" do
-        NidReview.any_instance.stub(:reverse_approval!)
-        post :reverse_approval, :id => nid_review.id
-        assert_redirected_to admin_nid_reviews_path
       end
     end
   end

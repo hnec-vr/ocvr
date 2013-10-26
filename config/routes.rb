@@ -6,6 +6,11 @@ OCVR::Application.routes.draw do
       post :reverse_approval, :on => :member
     end
 
+    resources :users do
+      post :activate,   :on => :member
+      post :deactivate, :on => :member
+    end
+
     root :to => "nid_reviews#index"
   end
 

@@ -8,13 +8,13 @@ class Mailer < ActionMailer::Base
          :subject => t("email_subjects.email_verification")
   end
 
-  def nid_approval(nid_review)
-    mail :to => nid_review.user.email,
+  def nid_approval(user)
+    mail :to => user.email,
          :subject => t('email_subjects.nid_approval')
   end
 
-  def nid_denial(nid_review)
-    mail :to => nid_review.user.email,
+  def nid_denial(user)
+    mail :to => user.email,
          :subject => t('email_subjects.nid_denial')
   end
 
