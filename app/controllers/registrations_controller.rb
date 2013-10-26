@@ -1,4 +1,6 @@
 class RegistrationsController < ApplicationController
+  include ArabicNumeralConverter
+
   before_filter :require_login
   before_filter :ensure_new_registration, :ensure_not_suspended,
                   :only => [:new, :findnid, :confirmnid, :setnid,
@@ -38,7 +40,9 @@ class RegistrationsController < ApplicationController
     end
 
     # api request
-    @nid = NidApi.get(params[:nid])
+    nid = is_i?(params[:nid]) ? params[:nid] : convert(params[:nid])
+
+    @nid = NidApi.get(nid)
 
     if @nid
       session[:nid] = @nid

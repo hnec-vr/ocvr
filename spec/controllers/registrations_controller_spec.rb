@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe RegistrationsController do
@@ -173,6 +176,12 @@ describe RegistrationsController do
             post :findnid, :nid => 123, :nid_confirmation => 123
           end
         end
+      end
+
+      it "should convert arabic numerals to english numbers" do
+          NidApi.should_receive(:get).with("219810371062")
+          nid = "٢١٩٨١٠٣٧١٠٦٢"
+          post :findnid, :nid => nid, :nid_confirmation => nid
       end
 
       context "if nid not found" do
