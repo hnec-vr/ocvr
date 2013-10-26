@@ -16,7 +16,7 @@
       %td= r.registry_number
       %td= r.mother_name
       %td
-        = link_to "View NID Cluster", "#", :class => "btn btn-mini btn-inverse expand-table"
+        = link_to "Toggle NID Cluster", "#", :class => "btn btn-mini btn-inverse toggle-table"
         %table.subtable
           - i = 0
           - User.where(:national_id => r.national_id).order("created_at DESC").each do |u|
@@ -32,7 +32,7 @@
                 - else
                   = link_to "Reactivate", activate_admin_user_path(u), :class => "btn btn-mini", :method => :post
       %td
-        = link_to "View NID Metadata", "#", :class => "btn btn-mini btn-inverse expand-table"
+        = link_to "Toggle NID Metadata", "#", :class => "btn btn-mini btn-inverse toggle-table"
         %table.subtable
           %tr
             %td= "Mother's Name:"
@@ -74,9 +74,9 @@
   :erb
     <script>
       $(function() {
-        $(".expand-table").click(function(e) {
+        $(".toggle-table").click(function(e) {
           e.preventDefault()
-          $(this).hide().siblings("table").show()
+          $(this).siblings("table").toggle()
         });
       });
     </script>
