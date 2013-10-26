@@ -51,11 +51,11 @@ class RegistrationsController < ApplicationController
   end
 
   def setnid
-    if current_user.update_attributes session[:nid], :without_protection => true
+    if User.active.find_by_national_id(session[:nid]["national_id"])
+      redirect_to reclaimnid_registration_path
+    elsif current_user.update_attributes session[:nid], :without_protection => true
       # TODO: delete all unprocessed nid reviews
       redirect_to edit_registration_path
-    elsif User.active.find_by_national_id(session[:nid]["national_id"])
-      redirect_to reclaimnid_registration_path
     end
   end
 
