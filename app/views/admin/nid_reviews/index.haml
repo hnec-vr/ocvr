@@ -64,6 +64,8 @@
       %td
         - if r.processed?
           = r.verdict
+          - if r.verdict == "denied"
+            = link_to "Approve", approve_admin_nid_review_path(r), :method => :post, :class => "btn btn-mini btn-success"
         - else
           = link_to "Approve", approve_admin_nid_review_path(r), :method => :post, :class => "btn btn-mini btn-success"
           = link_to "Deny", deny_admin_nid_review_path(r), :method => :post, :class => "btn btn-mini btn-danger"
