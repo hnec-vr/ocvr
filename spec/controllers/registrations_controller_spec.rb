@@ -143,6 +143,7 @@ describe RegistrationsController do
         User.any_instance.stub(:nid_lookup_count => 5)
         User.any_instance.should_receive(:suspend!).and_return(true)
         post :findnid, :nid => nid, :nid_confirmation => nid
+        email_deliveries.count.should eq 1
         assert_redirected_to suspended_path
       end
 

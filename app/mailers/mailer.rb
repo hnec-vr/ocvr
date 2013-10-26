@@ -28,6 +28,11 @@ class Mailer < ActionMailer::Base
          :subject => t('email_subjects.nid_claim_received')
   end
 
+  def account_suspended(user)
+    mail :to => user.email,
+         :subject => t('email_subjects.account_suspended')
+  end
+
   def reset_password(user)
     @token = user.password_reset_token
 

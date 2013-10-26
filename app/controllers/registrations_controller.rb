@@ -27,7 +27,9 @@ class RegistrationsController < ApplicationController
     current_user.increment_nid_lookup_count!
 
     if current_user.nid_lookup_count >= 5
-      current_user.suspend! and redirect_to suspended_path and return
+      current_user.suspend!
+      Mailer.delay.account_suspended(current_user)
+      redirect_to suspended_path and return
     end
 
     if validate_captcha? && !simple_captcha_valid?
