@@ -28,6 +28,6 @@
     = f.label t 'signup.form.labels.city'
     = f.text_field :city
     %br
-    .captcha_container{:dir => "ltr"}= f.simple_captcha :code_type => "numeric"
+    .captcha_container= f.simple_captcha :code_type => "numeric"
     %br
     = f.submit t('signup.form.button'), :class => "btn btn-large btn-warning"
