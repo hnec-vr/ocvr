@@ -88,6 +88,7 @@ GEM
     multi_json (1.8.1)
     nested_form (0.3.2)
     nestful (1.0.7)
+    newrelic_rpm (3.6.7.159)
     pg (0.17.0)
     polyglot (0.3.3)
     rack (1.4.5)
@@ -179,6 +180,7 @@ DEPENDENCIES
   jquery-rails
   nested_form
   nestful
+  newrelic_rpm
   pg
   rails (= 3.2.14)
   rspec-rails

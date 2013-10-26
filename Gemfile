@@ -17,6 +17,7 @@ gem 'valid_email'
 gem 'pg'
 
 group :production do
+  gem 'newrelic_rpm'
   gem 'airbrake'
 end
 
