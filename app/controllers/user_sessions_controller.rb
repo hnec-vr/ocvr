@@ -15,7 +15,7 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    current_user_session.destroy
+    current_user_session.try(:destroy)
 
     redirect_to root_path
   end
