@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
 
   def no_www
     if /^www/.match(request.host)
-      redirect_to 'http://' + ::SETTINGS[:default_host] + request.fullpath
+      redirect_to (config.force_ssl ? 'https://' : 'http://') + ::SETTINGS[:default_host] + request.fullpath
       flash.keep
     end
   end
