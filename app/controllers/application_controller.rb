@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   helper_method :current_user, :simple_captcha_valid?, :voter_registration_closed?
-  before_filter :no_layout_if_xhr, :capture_locale, :set_locale
+  before_filter :no_www, :no_layout_if_xhr, :capture_locale, :set_locale
 
   protected
 
@@ -29,6 +29,13 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def no_www
+    if /^www/.match(request.host)
+      redirect_to 'http://' + ::SETTINGS[:default_host] + request.fullpath
+      flash.keep
+    end
+  end
 
   def capture_locale
     if params[:locale] && %w(en ar).include?(params[:locale])
