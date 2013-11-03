@@ -155,4 +155,6 @@ ar:
     nid_approval: "لقد تم التحقق من حسابك"
     nid_denial: "لا نستطيع التحقق من حسابك"
     account_deactivated: "لقد تم تعطيل حسابك"
+    nid_claim_received: "لقد تم إستلام معلوماتك"
+    account_suspended: "لقد تم تعليق حسابك"
 
