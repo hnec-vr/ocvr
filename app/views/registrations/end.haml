@@ -10,8 +10,9 @@
   %p= t('registration_confirmation.details')
   .registration-details
     = current_user.full_name
-    %br
-    = current_user.constituency.name
+    -#
+      %br
+      = current_user.constituency.name
     %br
     = current_user.voting_location.send(I18n.locale)
     %br

@@ -18,7 +18,8 @@ class User < ActiveRecord::Base
   validates_presence_of :country_code, :city
   validates :email, :presence => true, :uniqueness => true, :email => true
   validates_presence_of :password, :password_confirmation, :if => :should_validate_password?
-  validates_presence_of :constituency_id, :voting_location_id, :if => :validate_registration
+  #validates_presence_of :constituency_id, :if => :validate_registration
+  validates_presence_of :voting_location_id, :if => :validate_registration
 
   before_validation :generate_email_verification_token, :on => :create
   before_update :clear_password_reset_token, :if => :password_changed?
@@ -67,7 +68,8 @@ class User < ActiveRecord::Base
   end
 
   def registration_complete?
-    national_id && constituency_id && voting_location_id
+    #national_id && constituency_id && voting_location_id
+    national_id && voting_location_id
   end
 
   def registration_changes_allowed

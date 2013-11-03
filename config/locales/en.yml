@@ -113,7 +113,7 @@ en:
       labels:
         constituency: "Select the constituency for which you would like to vote:"
         voting_location: "Select your preferred voting location:"
-      error: "Please make sure you've selected both a constituency and voting location."
+      error: "Please make sure you've selected both a voting location."
       verify: "Please verify the above information to ensure it is correct."
       button: "Submit Registration"
   registration_confirmation:
@@ -121,7 +121,7 @@ en:
     closed:
       paragraph_1: "Voter registration is closed"
     open:
-      paragraph_1: "If you need to change either the voting location or the constituency for which you wish to cast your vote, you may do so up to <strong>%{changes_allowed} time(s)</strong>. These changes must be completed by the end of the voter registration period."
+      paragraph_1: "If you need to change your voting location, you may do so up to <strong>%{changes_allowed} time(s)</strong>. These changes must be completed by the end of the voter registration period."
       paragraph_2: "After the end of registration we will email you a confirmation. Please remember that a photo ID is required at the polls."
     details: "These are the details of your registration:"
     print: "Print for your records"

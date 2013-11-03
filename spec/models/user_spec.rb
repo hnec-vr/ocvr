@@ -38,11 +38,11 @@ describe User do
     let!(:user) { create(:registered_user) }
     before { user.validate_registration! }
 
-    context "when constituency is changed" do
-      let!(:constituency) { create(:constituency) }
+    context "when voting location is changed" do
+      let!(:voting_location) { create(:voting_location) }
 
       it "should increment registration submission count" do
-        user.update_attributes({:constituency_id => constituency.id, :voting_location_id => user.voting_location_id}, :without_protection => true)
+        user.update_attributes({:constituency_id => user.constituency_id, :voting_location_id => voting_location.id}, :without_protection => true)
         user.registration_submission_count.should eq 1
       end
     end

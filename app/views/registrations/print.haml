@@ -9,9 +9,10 @@
     .receipt
       = t('print_registration.name')
       = current_user.full_name
-      %br
-      = t('print_registration.constituency')
-      = current_user.constituency.name
+      -#
+        %br
+        = t('print_registration.constituency')
+        = current_user.constituency.name
       %br
       = t('print_registration.voting_location')
       = current_user.voting_location.send(I18n.locale)
