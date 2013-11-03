@@ -19,7 +19,7 @@
         = link_to "Toggle NID Cluster", "#", :class => "btn btn-mini btn-inverse toggle-table"
         %table.subtable
           - i = 0
-          - User.where(:national_id => r.national_id).order("created_at DESC").each do |u|
+          - User.where(:national_id => r.national_id).order("created_at ASC").each do |u|
             - next if u == r.user && !r.processed?
             - i += 1
             %tr
