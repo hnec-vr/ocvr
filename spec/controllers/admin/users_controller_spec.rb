@@ -40,4 +40,11 @@ describe Admin::UsersController do
       email_deliveries.count.should eq 1
     end
   end
+
+  describe '/csv' do
+    it "should load successfully" do
+      get :csv
+      assert_response :success
+    end
+  end
 end

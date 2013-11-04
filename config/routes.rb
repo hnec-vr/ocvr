@@ -11,6 +11,8 @@ OCVR::Application.routes.draw do
       post :deactivate, :on => :member
     end
 
+    get '/csv' => "users#csv"
+
     root :to => "nid_reviews#index"
   end
 

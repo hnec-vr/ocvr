@@ -14,4 +14,8 @@ class Admin::UsersController < Admin::BaseController
 
     redirect_to admin_nid_reviews_path
   end
+
+  def csv
+    send_data User.to_csv, :type => "text/csv", :filename => "users-#{Time.now}.csv"
+  end
 end

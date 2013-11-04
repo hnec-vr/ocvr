@@ -1,3 +1,4 @@
+require 'csv'
 require 'valid_email'
 
 class User < ActiveRecord::Base
@@ -107,6 +108,16 @@ class User < ActiveRecord::Base
 
   def regenerate_password_reset_token!
     update_attribute(:password_reset_token, SecureRandom::hex(32))
+  end
+
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << %w(national_id email country city active name voting_location created_at )
+
+      all.each do |user|
+        csv << [user.national_id, user.email, user.country_code, user.city, user.active, user.full_name, user.voting_location.try(:en), user.created_at]
+      end
+    end
   end
 
   private
