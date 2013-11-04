@@ -78,7 +78,7 @@ en:
       errors:
         length: "Please make sure that the National Number you enter is 12 digits."
         confirmation: "The National Numbers you entered do not match."
-        not_found: "The National Number you entered does not appear in the database. Please check your National Number and try again."
+        not_found: "The National Number you entered is not able to be registered. Please check your National Number and try again."
       labels:
         national_id: "National Number"
         confirmation: "Retype National Number"
