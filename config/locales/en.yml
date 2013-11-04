@@ -128,9 +128,10 @@ en:
     modify: "Modify registration details"
   print_registration:
     name: "Name:"
+    national_id: "National Number:"
     constituency: "Constituency:"
     voting_location: "Voting Location:"
-    paragraph: "These registration details are as of %{date} for NationalNumber %{national_id}"
+    paragraph: "These registration details are as of %{date}"
   initiate_password_reset:
     header: "Reset Password"
     paragraph: "Please confirm your email address to reset your password."

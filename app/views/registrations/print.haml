@@ -9,6 +9,9 @@
     .receipt
       = t('print_registration.name')
       = current_user.full_name
+      %br
+      = t('print_registration.national_id')
+      = current_user.national_id
       -#
         %br
         = t('print_registration.constituency')
@@ -18,4 +21,4 @@
       = current_user.voting_location.send(I18n.locale)
       %br
       %br
-      = t('print_registration.paragraph', :date => Date.today, :national_id => current_user.national_id)
+      = t('print_registration.paragraph', :date => Date.today)
