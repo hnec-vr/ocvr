@@ -130,7 +130,7 @@ ar:
     name: "الاسم -"
     constituency: "الدائرة الانتخابية-"
     voting_location: "مكان التصويت-"
-    paragraph: "معلومات التسجيل هي %{date} المرتبطه بالرقم الوطني %{national_id}"
+    paragraph: "معلومات التسجيل هي المرتبطه %{date}"
   initiate_password_reset:
     header: "إعادة اختيار كلمة المرور"
     paragraph: "الرجاء التأكد من بريدك الإلكتروني لاعادة اختيار كلمة المرور"
