@@ -128,9 +128,10 @@ ar:
     modify: "تعديل بيانات التسجيل"
   print_registration:
     name: "الاسم -"
+    national_id: "القم الوطني:"
     constituency: "الدائرة الانتخابية-"
     voting_location: "مكان التصويت-"
-    paragraph: "معلومات التسجيل هي المرتبطه %{date}"
+    paragraph: "تم تسجيل هذه البيانات بتاريخ %{date}"
   initiate_password_reset:
     header: "إعادة اختيار كلمة المرور"
     paragraph: "الرجاء التأكد من بريدك الإلكتروني لاعادة اختيار كلمة المرور"
