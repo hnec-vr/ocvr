@@ -128,7 +128,7 @@ ar:
     modify: "تعديل بيانات التسجيل"
   print_registration:
     name: "الاسم -"
-    national_id: "القم الوطني:"
+    national_id: "الرقم الوطني:"
     constituency: "الدائرة الانتخابية-"
     voting_location: "مكان التصويت-"
     paragraph: "تم تسجيل هذه البيانات بتاريخ %{date}"
