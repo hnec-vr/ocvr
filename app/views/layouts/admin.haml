@@ -2,14 +2,14 @@
 %html
   %head
     %meta{:charset => "utf-8"}/
-    %title= "OCVR Admin"
+    %title= "OCV Admin"
     = csrf_meta_tags
     = stylesheet_link_tag "admin", :media => "all"
   %body
     .navbar.navbar-fluid-top.navbar-inverse
       .navbar-inner
         .container-fluid
-          %a.brand= "OCVR Admin"
+          %a.brand= "OCV Admin"
     .container-fluid
       = yield
     = javascript_include_tag "admin"
