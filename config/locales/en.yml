@@ -122,7 +122,7 @@ en:
       paragraph_1: "Voter registration is closed"
     open:
       paragraph_1: "If you need to change your voting location, you may do so up to <strong>%{changes_allowed} time(s)</strong>. These changes must be completed by the end of the voter registration period."
-      paragraph_2: "After the end of registration we will email you a confirmation. Please remember that a photo ID is required for voting."
+      paragraph_2: "After the end of registration we will email you a confirmation. Please remember that you must bring an official photo ID with you to vote."
     details: "These are the details of your registration:"
     print: "Print for your records"
     modify: "Modify registration details"
