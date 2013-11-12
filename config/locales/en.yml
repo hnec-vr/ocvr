@@ -153,8 +153,8 @@ en:
   email_subjects:
     email_verification: "Please verify your email"
     reset_password: "Reset your password"
-    nid_approval: "Your account has been verified"
-    nid_denial: "We could not verify your account"
-    account_deactivated: "Your account has been deactivated"
+    nid_approval: "Verification of Registration Details - OCV Libya"
+    nid_denial: "Verification of Registration Details - OCV Libya"
+    account_deactivated: "Verification of Registration Details - OCV Libya"
     nid_claim_received: "we've received your information"
     account_suspended: "Your account has been suspended"
