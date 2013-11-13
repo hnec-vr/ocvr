@@ -31,4 +31,4 @@
         %span.divider
         = t('global.footer.copyright').html_safe
     = javascript_include_tag "application"
-    = render partial: "layouts/snippets"
+    = render partial: "layouts/snippets" if Rails.env.production?
