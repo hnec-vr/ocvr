@@ -12,6 +12,7 @@ OCVR::Application.routes.draw do
     end
 
     get '/csv' => "users#csv"
+    get '/logout' => "users#logout"
 
     root :to => "nid_reviews#index"
   end

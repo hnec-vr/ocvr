@@ -10,6 +10,8 @@
       .navbar-inner
         .container-fluid
           %a.brand= "OCV Admin"
+          %ul.nav.navbar
+            %li= link_to "Logout", admin_logout_path
     .container-fluid
       = yield
     = javascript_include_tag "admin"
