@@ -6,6 +6,7 @@ class StaticPagesController < ApplicationController
   end
 
   def faq
+    @body_id = 'faq'
   end
 
   def confirm
