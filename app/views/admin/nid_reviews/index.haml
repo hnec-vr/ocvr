@@ -20,7 +20,6 @@
         %table.subtable
           - i = 0
           - User.where(:national_id => r.national_id).order("created_at ASC").each do |u|
-            - next if u == r.user && !r.processed?
             - i += 1
             %tr
               %td= i
