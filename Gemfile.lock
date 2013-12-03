@@ -76,6 +76,7 @@ GEM
     i18n-country-translations (1.0.1)
       i18n (~> 0.5)
       railties (>= 3.0.0)
+    iso_country_codes (0.4.2)
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -177,6 +178,7 @@ DEPENDENCIES
   factory_girl_rails
   haml-rails
   i18n-country-translations
+  iso_country_codes
   jquery-rails
   nested_form
   nestful

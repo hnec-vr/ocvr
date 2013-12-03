@@ -20,4 +20,12 @@ module ApplicationHelper
 
     options
   end
+
+  def country_select_local
+    codes_sans_libya = IsoCountryCodes.all.reject{|code|  code.alpha2 == "LY"} #remove libya from list
+    select = codes_sans_libya.map { |country| [I18n.t(country.send(:alpha2),:scope => :countries), country.send(:alpha2)] }
+    local_sorted_select = select.sort_by{ |n| t(n) }
+    
+    local_sorted_select
+  end
 end

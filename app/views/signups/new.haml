@@ -23,7 +23,7 @@
     = f.password_field :password_confirmation
     %br
     = f.label t 'signup.form.labels.country_select'
-    = f.select :country_code, ::COUNTRY_CODES.collect {|c| [t(c, :scope => :countries), c] }, {:prompt => t("signup.form.country_select_prompt")}
+    = f.select :country_code, country_select_local, {:prompt => t("signup.form.country_select_prompt")}
     %br
     = f.label t 'signup.form.labels.city'
     = f.text_field :city
