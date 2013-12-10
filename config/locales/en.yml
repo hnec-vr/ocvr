@@ -45,6 +45,7 @@ en:
   after_signup:
     header: "Thank you for creating an account"
     paragraph: "An email has been sent to you with a verification link. When you receive this email, please click on the link provided to confirm your account."
+    check_junk: "Please check your spam/junk mail folder to ensure you have received the email with the verification link"
   login:
     header: "Sign In"
     flash:
