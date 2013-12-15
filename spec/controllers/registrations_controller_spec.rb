@@ -184,6 +184,26 @@ describe RegistrationsController do
           post :findnid, :nid => nid, :nid_confirmation => nid
       end
 
+      context "if age 18 or under" do
+        before do
+          underage_response = successful_response
+          underage_response[:body]["birth_date"] = "2000-01-01T00:00:00"
+
+          stub_request(:get, uri).
+            to_return(underage_response)
+
+          post :findnid, :nid => nid, :nid_confirmation => nid
+        end
+
+        it "rerenders form" do
+          assert_template :new
+        end
+
+        it "should display error message" do
+          assert_not_nil assigns(:not_found)
+        end
+      end
+
       context "if nid not found" do
         before do
           NidApi.stub(:get)

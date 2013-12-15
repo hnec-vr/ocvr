@@ -44,7 +44,7 @@ class RegistrationsController < ApplicationController
 
     @nid = NidApi.get(nid)
 
-    if @nid
+    if @nid && age_allowed?(@nid["birth_date"])
       session[:nid] = @nid
       redirect_to confirmnid_registration_path
     else
@@ -126,6 +126,10 @@ class RegistrationsController < ApplicationController
   end
 
   private
+
+  def age_allowed?(birthdate)
+    Date.parse(birthdate) < (::SETTINGS[:voter_registration_deadline] - 18.years)
+  end
 
   def attempts_allowed_without_captcha
     2
