@@ -128,7 +128,7 @@ class RegistrationsController < ApplicationController
   private
 
   def age_allowed?(birthdate)
-    Date.parse(birthdate) < (::SETTINGS[:voter_registration_deadline] - 18.years)
+    Date.parse(birthdate) < (Date.today - 18.years)
   end
 
   def attempts_allowed_without_captcha
