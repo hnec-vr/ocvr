@@ -37,10 +37,15 @@ class RegistrationsController < ApplicationController
       redirect_to suspended_path and return
     end
 
-    # api request
-    nid = is_i?(params[:nid]) ? params[:nid] : convert(params[:nid])
-
-    @nid = NidApi.get(nid)
+    begin
+      # api request
+      nid = is_i?(params[:nid]) ? params[:nid] : convert(params[:nid])
+      @nid = NidApi.get(nid)
+    rescue RuntimeError
+      #unable to connect to API
+      @api_unavailable = true
+      render :new and return
+    end
 
     #increment api lookup count after actual api hit
     current_user.increment_nid_lookup_count!
