@@ -84,6 +84,7 @@ en:
         national_id: "National Number"
         confirmation: "Retype National Number"
       button: "Confirm"
+    api_unavailable: "We are unable to verify your NID at the moment. Please try again later."
   confirmnid:
     header: "Is this you?"
     paragraph: "This is the name associated with the National Number you entered. Is this you? Please note that there may be variations in the spelling of your name."
