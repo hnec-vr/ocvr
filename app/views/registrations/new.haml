@@ -10,6 +10,8 @@
       .alert.alert-error= t('nidlookup.form.errors.not_found')
     - if @captcha_incorrect
       .alert.alert-error= t('global.captcha_error')
+    - if @api_unavailable
+      .alert.alert-error= t('nidlookup.api_unavailable')
 
     %label= t('nidlookup.form.labels.national_id')
     = text_field_tag :nid, nil, :dir => "ltr"

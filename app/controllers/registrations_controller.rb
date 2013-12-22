@@ -26,7 +26,10 @@ class RegistrationsController < ApplicationController
       render :new and return
     end
 
-    current_user.increment_nid_lookup_count!
+    if validate_captcha? && !simple_captcha_valid?
+      @captcha_incorrect = true
+      render :new and return
+    end
 
     if current_user.nid_lookup_count >= 5
       current_user.suspend!
@@ -34,15 +37,18 @@ class RegistrationsController < ApplicationController
       redirect_to suspended_path and return
     end
 
-    if validate_captcha? && !simple_captcha_valid?
-      @captcha_incorrect = true
+    begin
+      # api request
+      nid = is_i?(params[:nid]) ? params[:nid] : convert(params[:nid])
+      @nid = NidApi.get(nid)
+    rescue RuntimeError
+      #unable to connect to API
+      @api_unavailable = true
       render :new and return
     end
 
-    # api request
-    nid = is_i?(params[:nid]) ? params[:nid] : convert(params[:nid])
-
-    @nid = NidApi.get(nid)
+    #increment api lookup count after actual api hit
+    current_user.increment_nid_lookup_count!
 
     if @nid && age_allowed?(@nid["birth_date"])
       session[:nid] = @nid
