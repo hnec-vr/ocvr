@@ -1,5 +1,5 @@
 defaults: &defaults
-  :voter_registration_deadline: 2013-12-22
+  :voter_registration_deadline: 2013-12-31
 
 production:
   <<: *defaults
