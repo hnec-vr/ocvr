@@ -3,10 +3,10 @@
 The OCVR tool pre-registers out-of-country voters in order to facilitate resource allocation and improve voter experience in Libyan elections.
 
 ## Requirements
-Ruby 1.9.3
-RVM
-Rails 3.2.14
-Postgres
+- Ruby 1.9.3
+- RVM
+- Rails 3.2.14
+- Postgres
 
 ## Installation
 ```
